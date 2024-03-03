@@ -51,4 +51,24 @@ describe('Gameboard', () => {
       gameboard.placeShip(8, 5, true, 3);
     }).toThrow();
   });
+
+  test('Receive attack works on empty square', () => {
+    expect(gameboard.board[3][2].hit).toEqual(false);
+
+    gameboard.placeShip(2, 3, true, 3);
+    gameboard.receiveAttack(3, 2);
+
+    expect(gameboard.board[3][2].hit).toEqual(true);
+  });
+
+  test('Receive attack works on square with ship', () => {
+    expect(gameboard.board[3][2].hit).toEqual(false);
+    expect(gameboard.board[3][2].ship.hits).toEqual(0);
+
+    gameboard.placeShip(2, 3, true, 3);
+    gameboard.receiveAttack(3, 2);
+
+    expect(gameboard.board[3][2].hit).toEqual(true);
+    expect(gameboard.board[3][2].ship.hits).toEqual(1);
+  });
 });

@@ -14,11 +14,11 @@ class Gameboard {
 
     if (isAxisX === true) {
       for (let x = startX; x - startX < length; x += 1) {
-        this.board[x][startY] = ship;
+        this.board[x][startY].ship = ship;
       }
     } else if (isAxisX === false) {
       for (let y = startY; y - startY < length; y += 1) {
-        this.board[startX][y] = ship;
+        this.board[startX][y].ship = ship;
       }
     }
   }
@@ -33,7 +33,12 @@ function generateBoard() {
   for (let i = 0; i < 10; i += 1) {
     const xAxis = [];
     for (let j = 0; j < 10; j += 1) {
-      xAxis.push(null);
+      const square = {
+        isHit: false,
+        ship: null,
+      };
+
+      xAxis.push(square);
     }
 
     board.push(xAxis);

@@ -1,12 +1,32 @@
+import Ship from './Ship';
+
 class Gameboard {
   constructor() {
     this.board = generateBoard();
   }
 
-  placeShip() {}
+  placeShip(startX, startY, isAxisX, length) {
+    if (isOutOfBound(startX, startY, isAxisX, length)) {
+      throw new Error('Ship out of bound');
+    }
+
+    const ship = new Ship(length);
+
+    if (isAxisX === true) {
+      for (let x = startX; x - startX < length; x += 1) {
+        this.board[x][startY] = ship;
+      }
+    } else if (isAxisX === false) {
+      for (let y = startY; y - startY < length; y += 1) {
+        this.board[startX][y] = ship;
+      }
+    }
+  }
 
   receiveAttack() {}
 }
+
+// Helper functions
 
 function generateBoard() {
   const board = [];
@@ -20,6 +40,12 @@ function generateBoard() {
   }
 
   return board;
+}
+
+function isOutOfBound(startX, startY, isAxisX, length) {
+  let endCoordinate = isAxisX === true ? startX + length : startY + length;
+
+  return endCoordinate > 9;
 }
 
 export default Gameboard;

@@ -85,4 +85,18 @@ describe('Gameboard', () => {
     expect(gameboard.board[3][3].isHit).toEqual(true);
     expect(gameboard.board[3][3].ship.hits).toEqual(1);
   });
+
+  test('areAllSunk returns correct value', () => {
+    expect(gameboard.areAllSunk()).toBe(true);
+
+    gameboard.placeShip(2, 3, true, 3);
+
+    expect(gameboard.areAllSunk()).toBe(false);
+
+    gameboard.receiveAttack(2, 3);
+    gameboard.receiveAttack(3, 3);
+    gameboard.receiveAttack(4, 3);
+
+    expect(gameboard.areAllSunk()).toBe(true);
+  });
 });

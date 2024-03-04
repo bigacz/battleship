@@ -23,7 +23,15 @@ class Gameboard {
     }
   }
 
-  receiveAttack() {}
+  receiveAttack(x, y) {
+    const square = this.board[x][y];
+    if (square.isHit === false) {
+      square.isHit = true;
+      if (square.ship) {
+        square.ship.hit();
+      }
+    }
+  }
 }
 
 // Helper functions

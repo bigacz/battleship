@@ -53,22 +53,36 @@ describe('Gameboard', () => {
   });
 
   test('Receive attack works on empty square', () => {
-    expect(gameboard.board[3][2].hit).toEqual(false);
+    expect(gameboard.board[3][2].isHit).toEqual(false);
 
     gameboard.placeShip(2, 3, true, 3);
     gameboard.receiveAttack(3, 2);
 
-    expect(gameboard.board[3][2].hit).toEqual(true);
+    expect(gameboard.board[3][2].isHit).toEqual(true);
   });
 
   test('Receive attack works on square with ship', () => {
-    expect(gameboard.board[3][2].hit).toEqual(false);
-    expect(gameboard.board[3][2].ship.hits).toEqual(0);
-
     gameboard.placeShip(2, 3, true, 3);
-    gameboard.receiveAttack(3, 2);
 
-    expect(gameboard.board[3][2].hit).toEqual(true);
-    expect(gameboard.board[3][2].ship.hits).toEqual(1);
+    expect(gameboard.board[3][3].isHit).toEqual(false);
+    expect(gameboard.board[3][3].ship.hits).toEqual(0);
+
+    gameboard.receiveAttack(3, 3);
+
+    expect(gameboard.board[3][3].isHit).toEqual(true);
+    expect(gameboard.board[3][3].ship.hits).toEqual(1);
+  });
+
+  test('Receive attack doesnt hit the square ship twice', () => {
+    gameboard.placeShip(2, 3, true, 3);
+
+    expect(gameboard.board[3][3].isHit).toEqual(false);
+    expect(gameboard.board[3][3].ship.hits).toEqual(0);
+
+    gameboard.receiveAttack(3, 3);
+    gameboard.receiveAttack(3, 3);
+
+    expect(gameboard.board[3][3].isHit).toEqual(true);
+    expect(gameboard.board[3][3].ship.hits).toEqual(1);
   });
 });

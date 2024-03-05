@@ -32,6 +32,19 @@ class Gameboard {
       }
     }
   }
+
+  areAllSunk() {
+    const flatBoard = this.board.flat();
+
+    const allSunk = flatBoard.every((square) => {
+      if (square.ship != null && !square.ship.isSunk()) {
+        return false;
+      }
+      return true;
+    });
+
+    return allSunk;
+  }
 }
 
 // Helper functions

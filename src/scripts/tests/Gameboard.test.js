@@ -2,7 +2,6 @@ import Gameboard from '../Gameboard';
 import Ship from '../Ship';
 
 describe('Gameboard', () => {
-  const emptySquare = { ship: null, isHit: false }.toString();
   let gameboard;
 
   beforeEach(() => {
@@ -15,35 +14,28 @@ describe('Gameboard', () => {
     gameboard.board.forEach((xAxis) => {
       expect(xAxis.length).toBe(10);
 
-      const isEverySquareEmpty = xAxis.every(
-        (square) => square.toString() === emptySquare
-      );
-
-      expect(isEverySquareEmpty).toBe(true);
+      xAxis.forEach((square) => {
+        expect(square.isHit).toEqual(false);
+        expect(square.ship).toEqual(null);
+      });
     });
   });
 
   test('Places ship on x axis', () => {
-    const compareSquare = {
-      isHit: false,
-      ship: new Ship(3),
-    };
+    const compareShip = new Ship(3);
 
     gameboard.placeShip(1, 2, true, 3);
-    expect(gameboard.board[1][2]).toEqual(compareSquare);
-    expect(gameboard.board[2][2]).toEqual(compareSquare);
-    expect(gameboard.board[3][2]).toEqual(compareSquare);
+    expect(gameboard.board[1][2].ship).toEqual(compareShip);
+    expect(gameboard.board[2][2].ship).toEqual(compareShip);
+    expect(gameboard.board[3][2].ship).toEqual(compareShip);
   });
 
   test('Places ship on y axis', () => {
-    const compareSquare = {
-      isHit: false,
-      ship: new Ship(2),
-    };
+    const compareShip = new Ship(2);
 
     gameboard.placeShip(2, 3, false, 2);
-    expect(gameboard.board[2][3]).toEqual(compareSquare);
-    expect(gameboard.board[2][4]).toEqual(compareSquare);
+    expect(gameboard.board[2][3].ship).toEqual(compareShip);
+    expect(gameboard.board[2][4].ship).toEqual(compareShip);
   });
 
   test('Placing throws an error when coordinates are out of bound', () => {

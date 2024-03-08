@@ -57,6 +57,8 @@ function generateBoard() {
       const square = {
         isHit: false,
         ship: null,
+        x: j,
+        y: i,
       };
 
       xAxis.push(square);

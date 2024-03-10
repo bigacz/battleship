@@ -3,9 +3,25 @@ import Ship from '../Ship';
 
 describe('Gameboard', () => {
   let gameboard;
+  let ship1;
+  let ship2;
+
+  let mockShipFloating = {
+    hit: jest.fn(),
+    isSunk: jest.fn(() => false),
+  };
+
+  let mockShipSunk = {
+    hit: jest.fn(),
+    isSunk: jest.fn(() => true),
+  };
 
   beforeEach(() => {
+    jest.clearAllMocks();
+
     gameboard = new Gameboard();
+    ship1 = new Ship(2);
+    ship2 = new Ship(3);
   });
 
   test('Instantiates correctly', () => {
@@ -22,20 +38,18 @@ describe('Gameboard', () => {
   });
 
   test('Places ship on x axis', () => {
-    const compareShip = new Ship(3);
-
     gameboard.placeShip(1, 2, true, 3);
-    expect(gameboard.board[1][2].ship).toEqual(compareShip);
-    expect(gameboard.board[2][2].ship).toEqual(compareShip);
-    expect(gameboard.board[3][2].ship).toEqual(compareShip);
+
+    expect(gameboard.board[1][2].ship).toEqual(ship2);
+    expect(gameboard.board[2][2].ship).toEqual(ship2);
+    expect(gameboard.board[3][2].ship).toEqual(ship2);
   });
 
   test('Places ship on y axis', () => {
-    const compareShip = new Ship(2);
-
     gameboard.placeShip(2, 3, false, 2);
-    expect(gameboard.board[2][3].ship).toEqual(compareShip);
-    expect(gameboard.board[2][4].ship).toEqual(compareShip);
+
+    expect(gameboard.board[2][3].ship).toEqual(ship1);
+    expect(gameboard.board[2][4].ship).toEqual(ship1);
   });
 
   test('Placing throws an error when coordinates are out of bound', () => {
@@ -45,50 +59,39 @@ describe('Gameboard', () => {
   });
 
   test('Receive attack works on empty square', () => {
-    expect(gameboard.board[3][2].isHit).toEqual(false);
-
-    gameboard.placeShip(2, 3, true, 3);
     gameboard.receiveAttack(3, 2);
 
     expect(gameboard.board[3][2].isHit).toEqual(true);
   });
 
   test('Receive attack works on square with ship', () => {
-    gameboard.placeShip(2, 3, true, 3);
-
-    expect(gameboard.board[3][3].isHit).toEqual(false);
-    expect(gameboard.board[3][3].ship.hits).toEqual(0);
+    gameboard.board[3][3].ship = mockShipFloating;
 
     gameboard.receiveAttack(3, 3);
 
     expect(gameboard.board[3][3].isHit).toEqual(true);
-    expect(gameboard.board[3][3].ship.hits).toEqual(1);
+    expect(mockShipFloating.hit).toHaveBeenCalled();
   });
 
   test('Receive attack doesnt hit the square ship twice', () => {
-    gameboard.placeShip(2, 3, true, 3);
-
-    expect(gameboard.board[3][3].isHit).toEqual(false);
-    expect(gameboard.board[3][3].ship.hits).toEqual(0);
+    gameboard.board[3][3].ship = mockShipFloating;
 
     gameboard.receiveAttack(3, 3);
     gameboard.receiveAttack(3, 3);
 
     expect(gameboard.board[3][3].isHit).toEqual(true);
-    expect(gameboard.board[3][3].ship.hits).toEqual(1);
+    expect(mockShipFloating.hit).toHaveBeenCalledTimes(1);
   });
 
-  test('areAllSunk returns correct value', () => {
-    expect(gameboard.areAllSunk()).toBe(true);
+  test('areAllSunk returns true when all Ships are sunk', () => {
+    gameboard.board[2][3].ship = mockShipSunk;
 
-    gameboard.placeShip(2, 3, true, 3);
+    expect(gameboard.areAllSunk()).toBe(true);
+  });
+
+  test('areAllSunk returns false if ship isnt sunk', () => {
+    gameboard.board[2][3].ship = mockShipFloating;
 
     expect(gameboard.areAllSunk()).toBe(false);
-
-    gameboard.receiveAttack(2, 3);
-    gameboard.receiveAttack(3, 3);
-    gameboard.receiveAttack(4, 3);
-
-    expect(gameboard.areAllSunk()).toBe(true);
   });
 });

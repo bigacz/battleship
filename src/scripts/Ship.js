@@ -18,6 +18,4 @@ class Ship {
   }
 }
 
-// idk if it should be property or method isSunk
-
 export default Ship;

@@ -45,6 +45,16 @@ class Gameboard {
 
     return allSunk;
   }
+
+  calculateAttack() {
+    const allSquares = this.board.flat();
+    const nonHitSquares = allSquares.filter((square) => !square.isHit);
+
+    const randomIndex = Math.floor(Math.random() * nonHitSquares.length);
+    const { x, y } = nonHitSquares[randomIndex];
+
+    return [x, y];
+  }
 }
 
 // Helper functions
@@ -66,7 +76,6 @@ function generateBoard() {
 
     board.push(xAxis);
   }
-
   return board;
 }
 

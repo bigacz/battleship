@@ -1,6 +1,8 @@
 import Gameboard from '../Gameboard';
 import Ship from '../Ship';
 
+jest.spyOn(global.Math, 'random').mockReturnValue(0.0001);
+
 describe('Gameboard', () => {
   let gameboard;
   let ship1;
@@ -93,5 +95,14 @@ describe('Gameboard', () => {
     gameboard.board[2][3].ship = mockShipFloating;
 
     expect(gameboard.areAllSunk()).toBe(false);
+  });
+
+  test('calculateAttack doesnt return hit square', () => {
+    gameboard.board[0][0].isHit = true;
+
+    const [x, y] = gameboard.calculateAttack();
+    const square = gameboard.board[x][y];
+
+    expect(square.isHit).toBe(false);
   });
 });

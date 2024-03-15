@@ -1,5 +1,5 @@
 import Ship from './Ship';
-import translateCoords from './translateCoords';
+import { isShipOutOfBound, translateCoords } from './boardHelpers';
 
 class Gameboard {
   constructor() {
@@ -7,7 +7,7 @@ class Gameboard {
   }
 
   placeShip(startX, startY, isAxisX, length) {
-    if (isOutOfBound(startX, startY, isAxisX, length)) {
+    if (this.isLegalToPlaceShip(startX, startY, isAxisX, length)) {
       throw new Error('Ship out of bound');
     }
 
@@ -51,6 +51,14 @@ class Gameboard {
 
     return [x, y];
   }
+
+  isLegalToPlaceShip(startX, startY, isAxisX, length) {
+    let isOutBound = isShipOutOfBound(startX, startY, isAxisX, length);
+
+    if (isOutBound === true) {
+      return false;
+    }
+  }
 }
 
 // Helper functions
@@ -73,12 +81,6 @@ function generateBoard() {
     board.push(xAxis);
   }
   return board;
-}
-
-function isOutOfBound(startX, startY, isAxisX, length) {
-  let endCoordinate = isAxisX === true ? startX + length : startY + length;
-
-  return endCoordinate > 9;
 }
 
 export default Gameboard;

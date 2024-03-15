@@ -105,4 +105,8 @@ describe('Gameboard', () => {
 
     expect(square.isHit).toBe(false);
   });
+
+  test('isLegalToPlaceShip returns false if ship is out of bound', () => {
+    expect(gameboard.isLegalToPlaceShip(8, 0, true, 3)).toBe(false);
+  });
 });

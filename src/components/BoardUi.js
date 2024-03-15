@@ -7,6 +7,15 @@ class BoardUi {
     this.board = parent;
   }
 
+  cleanBoard() {
+    const squares = Array.from(this.board.children);
+
+    squares.forEach((square) => {
+      square.classList.remove('square-hit');
+      square.classList.remove('square-ship');
+    });
+  }
+
   initializeBoard() {
     for (let x = 0; x < 10; x += 1) {
       for (let y = 0; y < 10; y += 1) {

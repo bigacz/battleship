@@ -1,3 +1,4 @@
+import PubSub from 'pubsub-js';
 import translateCoords from '../scripts/translateCoords';
 
 // isHit, isShip
@@ -9,9 +10,7 @@ class BoardUi {
   initializeBoard() {
     for (let x = 0; x < 10; x += 1) {
       for (let y = 0; y < 10; y += 1) {
-        const square = document.createElement('div');
-        square.setAttribute('data-x', x);
-        square.setAttribute('data-y', y);
+        const square = generateSquare(x, y);
 
         this.board.append(square);
       }
@@ -40,6 +39,31 @@ class BoardUi {
   }
 }
 
-const boardUi = {};
+// Helper functions
 
-export default boardUi;
+function generateSquare(x, y) {
+  const square = document.createElement('div');
+
+  square.setAttribute('data-x', x);
+  square.setAttribute('data-y', y);
+
+  square.addEventListener('click', (event) => {
+    const target = event.currentTarget;
+
+    const clickedX = target.getAttribute('data-x');
+    const clickedY = target.getAttribute('data-y');
+    const boardId = target.parentElement.id;
+
+    const squareData = {
+      x: clickedX,
+      y: clickedY,
+      boardId,
+    };
+
+    PubSub.publish('square-clicked', squareData);
+  });
+
+  return square;
+}
+
+export default BoardUi;

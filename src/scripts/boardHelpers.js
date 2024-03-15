@@ -20,4 +20,25 @@ function isShipOutOfBound(startX, startY, isAxisX, length) {
   return endCoordinate - 1 > 9;
 }
 
-export { translateCoords, isShipOutOfBound };
+function getAdjacentCoords(midX, midY) {
+  const coordinates = [];
+
+  for (let x = midX - 1; x <= midX + 1; x += 1) {
+    for (let y = midY - 1; y <= midY + 1; y += 1) {
+      if ((x !== midX || y !== midY) && isOutBound(x, y)) {
+        coordinates.push([x, y]);
+      }
+    }
+  }
+
+  return coordinates;
+}
+
+function isOutBound(x, y) {
+  const isX = x >= 0 && x <= 9;
+  const isY = y >= 0 && y <= 9;
+
+  return isX && isY;
+}
+
+export { translateCoords, isShipOutOfBound, getAdjacentCoords };

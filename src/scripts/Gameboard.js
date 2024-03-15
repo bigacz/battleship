@@ -1,4 +1,5 @@
 import Ship from './Ship';
+import translateCoords from './translateCoords';
 
 class Gameboard {
   constructor() {
@@ -11,16 +12,11 @@ class Gameboard {
     }
 
     const ship = new Ship(length);
+    const coordinates = translateCoords(startX, startY, isAxisX, length);
 
-    if (isAxisX === true) {
-      for (let x = startX; x - startX < length; x += 1) {
-        this.board[x][startY].ship = ship;
-      }
-    } else if (isAxisX === false) {
-      for (let y = startY; y - startY < length; y += 1) {
-        this.board[startX][y].ship = ship;
-      }
-    }
+    coordinates.forEach(([x, y]) => {
+      this.board[x][y].ship = ship;
+    });
   }
 
   receiveAttack(x, y) {

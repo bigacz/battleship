@@ -119,4 +119,18 @@ describe('isLegalToPlaceShip', () => {
   test('returns false if ship is out of bound', () => {
     expect(gameboard.isLegalToPlaceShip(8, 0, true, 3)).toBe(false);
   });
+
+  test('returns true if ship is in bound', () => {
+    expect(gameboard.isLegalToPlaceShip(5, 0, true, 3)).toBe(true);
+  });
+
+  test('returns false if ship is adjacent', () => {
+    gameboard.board[0][0].ship = mockShipFloating;
+
+    expect(gameboard.isLegalToPlaceShip(1, 1, true, 3)).toBe(false);
+  });
+
+  test('returns true if ship isnt adjacent', () => {
+    expect(gameboard.isLegalToPlaceShip(1, 1, true, 3)).toBe(true);
+  });
 });

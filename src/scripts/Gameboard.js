@@ -1,5 +1,9 @@
 import Ship from './Ship';
-import { isShipOutOfBound, translateCoords } from './boardHelpers';
+import {
+  getAdjacentCoords,
+  isShipOutOfBound,
+  translateCoords,
+} from './boardHelpers';
 
 class Gameboard {
   constructor() {
@@ -7,7 +11,8 @@ class Gameboard {
   }
 
   placeShip(startX, startY, isAxisX, length) {
-    if (this.isLegalToPlaceShip(startX, startY, isAxisX, length)) {
+    const isLegal = this.isLegalToPlaceShip(startX, startY, isAxisX, length);
+    if (!isLegal) {
       throw new Error('Ship out of bound');
     }
 
@@ -53,11 +58,23 @@ class Gameboard {
   }
 
   isLegalToPlaceShip(startX, startY, isAxisX, length) {
-    let isOutBound = isShipOutOfBound(startX, startY, isAxisX, length);
-
-    if (isOutBound === true) {
+    const isOutBound = isShipOutOfBound(startX, startY, isAxisX, length);
+    if (isOutBound) {
       return false;
     }
+
+    const adjacentCoords = getAdjacentCoords(startX, startY);
+    const isShipAdjacent = adjacentCoords.some(([x, y]) => {
+      const square = this.board[x][y];
+
+      return square.ship != null;
+    });
+
+    if (isShipAdjacent) {
+      return false;
+    }
+
+    return true;
   }
 }
 

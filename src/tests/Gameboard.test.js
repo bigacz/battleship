@@ -1,5 +1,5 @@
-import Gameboard from '../Gameboard';
-import Ship from '../Ship';
+import Gameboard from '../scripts/Gameboard';
+import Ship from '../scripts/Ship';
 
 jest.spyOn(global.Math, 'random').mockReturnValue(0.0001);
 

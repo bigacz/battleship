@@ -1,4 +1,4 @@
-import { isShipOutOfBound, translateCoords } from '../boardHelpers';
+import { isShipOutOfBound, translateCoords } from '../scripts/boardHelpers';
 
 describe('translateCoords', () => {
   test('works on X axis', () => {

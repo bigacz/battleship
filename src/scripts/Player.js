@@ -15,12 +15,16 @@ class Player {
     this.board.receiveAttack(x, y);
   }
 
-  calculateMove() {
+  calculateAttack() {
     return this.board.calculateAttack();
   }
 
   areAllSunk() {
     return this.board.areAllSunk();
+  }
+
+  isHit(x, y) {
+    return this.board.isHit(x, y);
   }
 }
 

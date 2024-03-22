@@ -1,0 +1,31 @@
+body {
+  height: 100dvh;
+  background-color: rgb(61, 58, 58);
+  display: flex;
+
+  justify-content: space-around;
+  align-items: center;
+}
+
+div.board {
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+  grid-template-rows: repeat(10, 40px);
+  gap: 2px;
+}
+
+div div {
+  background-color: teal;
+}
+
+.square-hit {
+  background-color: rgb(255, 255, 255);
+}
+
+.square-ship {
+  background-color: yellow;
+}
+
+.square-hit.square-ship {
+  background-color: rgb(255, 0, 0);
+}

@@ -1,10 +1,12 @@
 import PubSub from 'pubsub-js';
-import translateCoords from '../scripts/translateCoords';
+import { translateCoords } from '../scripts/boardHelpers';
 
-// isHit, isShip
 class BoardUi {
-  constructor(parent) {
+  constructor(parent, id) {
     this.board = parent;
+    this.id = id;
+
+    this.initializeBoard();
   }
 
   cleanBoard() {
@@ -17,6 +19,8 @@ class BoardUi {
   }
 
   initializeBoard() {
+    this.board.setAttribute('data-board-id', this.id);
+
     for (let x = 0; x < 10; x += 1) {
       for (let y = 0; y < 10; y += 1) {
         const square = generateSquare(x, y);
@@ -61,7 +65,7 @@ function generateSquare(x, y) {
 
     const clickedX = target.getAttribute('data-x');
     const clickedY = target.getAttribute('data-y');
-    const boardId = target.parentElement.id;
+    const boardId = target.parentElement.getAttribute('data-board-id');
 
     const squareData = {
       x: clickedX,

@@ -76,6 +76,10 @@ class Gameboard {
 
     return true;
   }
+
+  isHit(x, y) {
+    return this.board[x][y].isHit;
+  }
 }
 
 // Helper functions

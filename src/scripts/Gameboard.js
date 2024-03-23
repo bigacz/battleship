@@ -49,9 +49,10 @@ class Gameboard {
 
   calculateAttack() {
     const allSquares = this.board.flat();
-    const nonHitSquares = allSquares.filter((square) => !square.isHit);
+    const nonHitSquares = allSquares.filter((square) => square.isHit === false);
 
     const randomIndex = Math.floor(Math.random() * nonHitSquares.length);
+
     const { x, y } = nonHitSquares[randomIndex];
 
     return [x, y];
@@ -92,8 +93,8 @@ function generateBoard() {
       const square = {
         isHit: false,
         ship: null,
-        x: j,
-        y: i,
+        x: i,
+        y: j,
       };
 
       xAxis.push(square);

@@ -39,6 +39,7 @@ function randomAttackOther() {
   const otherPlayer = players[otherId];
 
   const [x, y] = otherPlayer.calculateAttack();
+
   otherBoardUi.hitSquare(x, y);
   otherPlayer.receiveAttack(x, y);
 }
@@ -70,6 +71,10 @@ function getCurrentId() {
   return currentId;
 }
 
+function getOtherId() {
+  return currentId === 0 ? 1 : 0;
+}
+
 const game = {
   switchElements,
   attackOther,
@@ -79,6 +84,7 @@ const game = {
   cleanBoards,
   isCurrentAi,
   getCurrentId,
+  getOtherId,
 };
 
 export default game;

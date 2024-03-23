@@ -21,8 +21,8 @@ class BoardUi {
   initializeBoard() {
     this.board.setAttribute('data-board-id', this.id);
 
-    for (let x = 0; x < 10; x += 1) {
-      for (let y = 0; y < 10; y += 1) {
+    for (let y = 0; y < 10; y += 1) {
+      for (let x = 0; x < 10; x += 1) {
         const square = generateSquare(x, y);
 
         this.board.append(square);
@@ -63,9 +63,9 @@ function generateSquare(x, y) {
   square.addEventListener('click', (event) => {
     const target = event.currentTarget;
 
-    const clickedX = target.getAttribute('data-x');
-    const clickedY = target.getAttribute('data-y');
-    const boardId = target.parentElement.getAttribute('data-board-id');
+    const clickedX = Number(target.getAttribute('data-x'));
+    const clickedY = Number(target.getAttribute('data-y'));
+    const boardId = Number(target.parentElement.getAttribute('data-board-id'));
 
     const squareData = {
       x: clickedX,

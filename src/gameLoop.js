@@ -5,12 +5,7 @@ function continueRound() {
   if (game.isCurrentAi()) {
     game.randomAttackOther();
 
-    if (game.isOtherSunk()) {
-      // end game
-    }
-
-    game.switchElements();
-    PubSub.publish('player-attacked');
+    endRound();
   }
 }
 
@@ -18,21 +13,24 @@ PubSub.subscribe('square-clicked', (msg, data) => {
   const { boardId, x, y } = data;
 
   const otherId = game.getOtherId();
+  const isHit = game.isOtherHit(x, y);
 
-  if (otherId === boardId) {
+  if (otherId === boardId && !game.isSomeoneSunk() && !isHit) {
     game.attackOther(x, y);
 
-    if (game.isOtherSunk()) {
-      // end game
-    }
-
-    game.switchElements();
-    PubSub.publish('player-attacked');
+    endRound();
   }
 });
 
-PubSub.subscribe('player-attacked', () => {
-  continueRound();
-});
+function endRound() {
+  if (game.isOtherSunk()) {
+    // end game
+  } else {
+    game.switchElements();
+    continueRound();
+  }
+}
+
+function playAiRound(x, y) {}
 
 continueRound();

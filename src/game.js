@@ -18,37 +18,58 @@ const boardUi1 = new BoardUi(parent2, 1);
 const boardUis = [boardUi0, boardUi1];
 const players = [player0, player1];
 
+// temporary
+
+player0.placeShip(2, 2, true, 3);
+player1.placeShip(2, 2, true, 3);
+
+boardUi0.placeShip(2, 2, true, 3);
+boardUi1.placeShip(2, 2, true, 3);
+
+//
+
 let currentId = 0;
+let otherId = 1;
+
+let currentPlayer = players[currentId];
+let otherPlayer = players[otherId];
+
+let currentBoardUi = boardUis[currentId];
+let otherBoardUi = boardUis[otherId];
 
 function switchElements() {
+  otherId = currentId;
   currentId = currentId === 0 ? 1 : 0;
+
+  currentPlayer = players[currentId];
+  otherPlayer = players[otherId];
+
+  currentBoardUi = boardUis[currentId];
+  otherBoardUi = boardUis[otherId];
 }
 
 function attackOther(x, y) {
-  const otherId = currentId === 0 ? 1 : 0;
-  const otherBoardUi = boardUis[otherId];
-  const otherPlayer = players[otherId];
-
   otherBoardUi.hitSquare(x, y);
   otherPlayer.receiveAttack(x, y);
 }
 
 function randomAttackOther() {
-  const otherId = currentId === 0 ? 1 : 0;
-  const otherBoardUi = boardUis[otherId];
-  const otherPlayer = players[otherId];
-
   const [x, y] = otherPlayer.calculateAttack();
 
   otherBoardUi.hitSquare(x, y);
   otherPlayer.receiveAttack(x, y);
 }
 
-function isOtherSunk() {
-  const otherId = currentId === 0 ? 1 : 0;
-  const otherPlayer = players[otherId];
+function isCurrentSunk() {
+  return currentPlayer.areAllSunk();
+}
 
+function isOtherSunk() {
   return otherPlayer.areAllSunk();
+}
+
+function isSomeoneSunk() {
+  return isCurrentSunk() || isOtherSunk();
 }
 
 function replacePlayers([name0, isAi0], [name1, isAi1]) {
@@ -64,7 +85,7 @@ function cleanBoards() {
 }
 
 function isCurrentAi() {
-  return players[currentId].isAi;
+  return currentPlayer.isAi;
 }
 
 function getCurrentId() {
@@ -72,7 +93,15 @@ function getCurrentId() {
 }
 
 function getOtherId() {
-  return currentId === 0 ? 1 : 0;
+  return otherId;
+}
+
+function isCurrentHit(x, y) {
+  return currentPlayer.isHit(x, y);
+}
+
+function isOtherHit(x, y) {
+  return otherPlayer.isHit(x, y);
 }
 
 const game = {
@@ -85,6 +114,9 @@ const game = {
   isCurrentAi,
   getCurrentId,
   getOtherId,
+  isSomeoneSunk,
+  isCurrentHit,
+  isOtherHit,
 };
 
 export default game;

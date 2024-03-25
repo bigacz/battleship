@@ -1,0 +1,13 @@
+.endscreen {
+  position: absolute;
+  height: 100dvh;
+  width: 100dvw;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.endscreen-dialogbox {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}

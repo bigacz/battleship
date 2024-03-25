@@ -1,5 +1,6 @@
 import PubSub from 'pubsub-js';
 import game from './game';
+import endScreen from './components/endScreen';
 
 function continueRound() {
   if (game.isCurrentAi()) {
@@ -24,7 +25,7 @@ PubSub.subscribe('square-clicked', (msg, data) => {
 
 function endRound() {
   if (game.isOtherSunk()) {
-    // end game
+    endScreen.enable();
   } else {
     game.switchElements();
     continueRound();

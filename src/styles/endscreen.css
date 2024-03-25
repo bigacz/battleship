@@ -1,8 +1,13 @@
 .endscreen {
+  display: none;
   position: absolute;
   height: 100dvh;
   width: 100dvw;
   background-color: rgba(0, 0, 0, 0.7);
+}
+
+.endscreen-active {
+  display: block;
 }
 
 .endscreen-dialogbox {

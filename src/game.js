@@ -1,6 +1,7 @@
 import PubSub from 'pubsub-js';
 import BoardUi from './components/BoardUi';
 import Player from './scripts/Player';
+import endScreen from './components/endScreen';
 
 // Temporary
 
@@ -104,6 +105,16 @@ function isOtherHit(x, y) {
   return otherPlayer.isHit(x, y);
 }
 
+function enableEndScreen() {
+  const winner = getWinner();
+  endScreen.changeWinner(winner);
+  endScreen.enable();
+}
+
+function disableEndScreen() {
+  endScreen.disable();
+}
+
 const game = {
   switchElements,
   attackOther,
@@ -117,6 +128,21 @@ const game = {
   isSomeoneSunk,
   isCurrentHit,
   isOtherHit,
+  enableEndScreen,
+  disableEndScreen,
 };
+
+// Helpers
+function getWinner() {
+  let winner = null;
+
+  if (isCurrentSunk()) {
+    winner = otherPlayer.name;
+  } else if (isOtherSunk()) {
+    winner = currentPlayer.name;
+  }
+
+  return winner;
+}
 
 export default game;

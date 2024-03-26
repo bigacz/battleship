@@ -1,14 +1,5 @@
 import PubSub from 'pubsub-js';
 import game from './game';
-import endScreen from './components/endScreen';
-
-function continueRound() {
-  if (game.isCurrentAi()) {
-    game.randomAttackOther();
-
-    endRound();
-  }
-}
 
 PubSub.subscribe('square-clicked', (msg, data) => {
   const { boardId, x, y } = data;
@@ -25,13 +16,19 @@ PubSub.subscribe('square-clicked', (msg, data) => {
 
 function endRound() {
   if (game.isOtherSunk()) {
-    endScreen.enable();
+    game.enableEndScreen();
   } else {
     game.switchElements();
-    continueRound();
+    checkIfPlayerIsAi();
   }
 }
 
-function playAiRound(x, y) {}
+function checkIfPlayerIsAi() {
+  if (game.isCurrentAi()) {
+    game.randomAttackOther();
 
-continueRound();
+    endRound();
+  }
+}
+
+checkIfPlayerIsAi();

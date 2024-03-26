@@ -11,32 +11,51 @@ PubSub.subscribe('square-clicked', (msg, data) => {
   if (otherId === boardId && !game.isSomeoneSunk() && !isHit) {
     other.receiveAttack(x, y);
 
-    // should continue round when hit
-    other.isShip(x, y);
-    endRound();
+    const isShip = other.isShip(x, y);
+
+    checkForEnd();
+
+    if (!isShip) {
+      startNextRound();
+    }
   }
 });
 
-function endRound() {
+function startNextRound() {
+  game.switchElements();
+  checkIfCurrentIsAi();
+}
+
+function checkForEnd() {
   const other = game.getOther();
 
   if (other.areAllSunk()) {
     game.enableEndScreen();
-  } else {
-    game.switchElements();
-    checkIfPlayerIsAi();
   }
 }
 
-function checkIfPlayerIsAi() {
+function checkIfCurrentIsAi() {
   const current = game.getCurrent();
-  const other = game.getOther();
 
   if (current.isAi()) {
-    other.receiveRandomAttack();
-
-    endRound();
+    playAiRound();
   }
 }
 
-checkIfPlayerIsAi();
+function playAiRound() {
+  const other = game.getOther();
+
+  const [x, y] = other.calculateAttack();
+  other.receiveAttack(x, y);
+
+  checkForEnd();
+
+  const isShip = other.isShip(x, y);
+  if (isShip) {
+    playAiRound();
+  } else {
+    startNextRound();
+  }
+}
+
+checkIfCurrentIsAi();

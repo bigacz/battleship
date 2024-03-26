@@ -19,6 +19,10 @@ class GameElement {
     this.player.receiveAttack(x, y);
   }
 
+  calculateAttack() {
+    return this.player.calculateAttack();
+  }
+
   areAllSunk() {
     return this.player.areAllSunk();
   }

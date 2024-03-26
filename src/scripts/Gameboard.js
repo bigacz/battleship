@@ -81,6 +81,10 @@ class Gameboard {
   isHit(x, y) {
     return this.board[x][y].isHit;
   }
+
+  isShip(x, y) {
+    return this.board[x][y].ship != null;
+  }
 }
 
 // Helper functions

@@ -26,6 +26,10 @@ class Player {
   isHit(x, y) {
     return this.board.isHit(x, y);
   }
+
+  isShip(x, y) {
+    return this.board.isShip(x, y);
+  }
 }
 
 export default Player;

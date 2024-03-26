@@ -57,6 +57,8 @@ class BoardUi {
 function generateSquare(x, y) {
   const square = document.createElement('div');
 
+  square.classList.add('square');
+
   square.setAttribute('data-x', x);
   square.setAttribute('data-y', y);
 

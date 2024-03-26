@@ -1,16 +1,16 @@
-div.board {
+.board {
   display: grid;
   grid-template-columns: repeat(10, 40px);
   grid-template-rows: repeat(10, 40px);
   gap: 2px;
 }
 
-div.board div {
+.square {
   background-color: teal;
 }
 
 .square-hit {
-  background-color: rgb(255, 255, 255);
+  background-color: white;
 }
 
 .square-ship {

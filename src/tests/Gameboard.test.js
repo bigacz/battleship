@@ -134,3 +134,20 @@ describe('isLegalToPlaceShip', () => {
     expect(gameboard.isLegalToPlaceShip(1, 1, true, 3)).toBe(true);
   });
 });
+
+describe('getShipCoords', () => {
+  test('returns coordinates of ship', () => {
+    gameboard.board[3][3].ship = mockShipFloating;
+    gameboard.board[3][4].ship = mockShipFloating;
+    gameboard.board[3][5].ship = mockShipFloating;
+    gameboard.board[3][6].ship = mockShipFloating;
+    expect(gameboard.getShipCoords(3, 4).sort()).toEqual(
+      [
+        [3, 3],
+        [3, 4],
+        [3, 5],
+        [3, 6],
+      ].sort()
+    );
+  });
+});

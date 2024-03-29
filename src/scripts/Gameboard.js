@@ -78,6 +78,35 @@ class Gameboard {
     return true;
   }
 
+  getShipCoords(startX, startY) {
+    if (!this.isShip(startX, startY)) {
+      return [];
+    }
+
+    const knownCoords = getAdjacentCoords(startX, startY);
+    const usedCoords = [...knownCoords, [startX, startY]];
+    const shipCoords = [[startX, startY]];
+
+    let i = 0;
+    while (knownCoords.length > 0) {
+      const [x, y] = knownCoords.pop();
+
+      if (this.isShip(x, y) === true) {
+        shipCoords.push([x, y]);
+
+        const adjacentCoords = getAdjacentCoords(x, y);
+        const newCoords = adjacentCoords.filter(
+          (coords) => !usedCoords.some((used) => compareArrays(coords, used))
+        );
+
+        usedCoords.push(...newCoords);
+        knownCoords.push(...newCoords);
+      }
+    }
+    console.log(shipCoords);
+    return shipCoords;
+  }
+
   isHit(x, y) {
     return this.board[x][y].isHit;
   }
@@ -110,3 +139,7 @@ function generateBoard() {
 }
 
 export default Gameboard;
+
+function compareArrays(array0, array1) {
+  return JSON.stringify(array0) === JSON.stringify(array1);
+}

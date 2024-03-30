@@ -1,7 +1,9 @@
 class Ship {
-  constructor(length) {
+  constructor(startX, startY, length) {
     this.hits = 0;
     this.length = length;
+    this.startX = startX;
+    this.startY = startY;
   }
 
   hit() {
@@ -9,12 +11,7 @@ class Ship {
   }
 
   isSunk() {
-    let sunk = false;
-    if (this.hits >= this.length) {
-      sunk = true;
-    }
-
-    return sunk;
+    return this.hits >= this.length;
   }
 }
 

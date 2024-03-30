@@ -5,7 +5,6 @@ jest.spyOn(global.Math, 'random').mockReturnValue(0.0001);
 
 let gameboard;
 let ship1;
-let ship2;
 
 let mockShipFloating = {
   hit: jest.fn(),
@@ -21,8 +20,6 @@ beforeEach(() => {
   jest.clearAllMocks();
 
   gameboard = new Gameboard();
-  ship1 = new Ship(2);
-  ship2 = new Ship(3);
 });
 
 describe('Instantiation', () => {
@@ -30,7 +27,7 @@ describe('Instantiation', () => {
     expect(gameboard.board.length).toBe(10);
 
     gameboard.board.forEach((xAxis) => {
-      expect(xAxis.length).toBe(10);
+      expect(xAxis.length).toEqual(10);
 
       xAxis.forEach((square) => {
         expect(square.isHit).toEqual(false);
@@ -42,18 +39,20 @@ describe('Instantiation', () => {
 
 describe('placeShip', () => {
   test('on x axis', () => {
+    let ship = new Ship(1, 2, 3);
     gameboard.placeShip(1, 2, true, 3);
 
-    expect(gameboard.board[1][2].ship).toEqual(ship2);
-    expect(gameboard.board[2][2].ship).toEqual(ship2);
-    expect(gameboard.board[3][2].ship).toEqual(ship2);
+    expect(gameboard.board[1][2].ship).toEqual(ship);
+    expect(gameboard.board[2][2].ship).toEqual(ship);
+    expect(gameboard.board[3][2].ship).toEqual(ship);
   });
 
   test('on y axis', () => {
+    let ship = new Ship(2, 3, 2);
     gameboard.placeShip(2, 3, false, 2);
 
-    expect(gameboard.board[2][3].ship).toEqual(ship1);
-    expect(gameboard.board[2][4].ship).toEqual(ship1);
+    expect(gameboard.board[2][3].ship).toEqual(ship);
+    expect(gameboard.board[2][4].ship).toEqual(ship);
   });
 
   test('throws an error when coordinates are out of bound', () => {

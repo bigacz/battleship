@@ -13,10 +13,26 @@
   background-color: white;
 }
 
-.square-ship {
+.ship {
+  position: relative;
+  display: grid;
+  grid-auto-rows: 40px;
+  grid-auto-columns: 40px;
+  gap: 2px;
+}
+
+.ship-horizontal {
+  grid-auto-flow: column;
+}
+
+.ship-vertical {
+  grid-auto-flow: row;
+}
+
+.ship-part {
   background-color: yellow;
 }
 
-.square-hit.square-ship {
-  background-color: rgb(255, 0, 0);
+.ship-part-hit {
+  background-color: red;
 }

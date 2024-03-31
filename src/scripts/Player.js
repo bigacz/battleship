@@ -30,6 +30,10 @@ class Player {
   isShip(x, y) {
     return this.board.isShip(x, y);
   }
+
+  getShipStart(x, y) {
+    return this.board.getShipStart(x, y);
+  }
 }
 
 export default Player;

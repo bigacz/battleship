@@ -107,6 +107,17 @@ class Gameboard {
     return shipCoords;
   }
 
+  getShipStart(x, y) {
+    const { ship } = this.board[x][y];
+
+    const coords = {
+      startX: ship.startX,
+      startY: ship.startY,
+    };
+
+    return coords;
+  }
+
   isHit(x, y) {
     return this.board[x][y].isHit;
   }

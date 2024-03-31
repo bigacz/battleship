@@ -36,6 +36,13 @@ class BoardUi {
     square.classList.add('square-hit');
   }
 
+  hitShip(startX, startY, relative) {
+    const square = this.getSquare(startX, startY);
+    const ship = square.children[0].children;
+
+    ship[relative].classList.add('ship-part-hit');
+  }
+
   placeShip(startX, startY, isAxisX, length) {
     const ship = generateShip(length, isAxisX);
     const startSquare = this.getSquare(startX, startY);
@@ -60,30 +67,34 @@ function generateSquare(x, y) {
   square.setAttribute('data-y', y);
 
   square.addEventListener('click', (event) => {
-    const { currentTarget } = event;
-    const { target } = event;
+    const { currentTarget, target } = event;
 
     const clickedX = Number(currentTarget.getAttribute('data-x'));
     const clickedY = Number(currentTarget.getAttribute('data-y'));
 
-    const relativeX = event.target.getAttribute('data-relative-x');
-    const relativeY = event.target.getAttribute('data-relative-y');
+    const relativeX = target.getAttribute('data-relative-x');
+    const relativeY = target.getAttribute('data-relative-y');
+
+    let actualX = Number(clickedX);
+    let actualY = Number(clickedY);
+    if (relativeX) {
+      actualX += Number(relativeX);
+    }
+
+    if (relativeY) {
+      actualY += Number(relativeY);
+    }
 
     const boardId = Number(
       currentTarget.parentElement.getAttribute('data-board-id')
     );
 
     const squareData = {
-      x: clickedX,
-      y: clickedY,
-      relativeX,
-      relativeY,
+      x: actualX,
+      y: actualY,
 
       boardId,
     };
-
-    console.log(squareData);
-    console.log(event.target);
 
     PubSub.publish('square-clicked', squareData);
   });

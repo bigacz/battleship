@@ -1,5 +1,4 @@
 import PubSub from 'pubsub-js';
-import { translateCoords } from '../scripts/boardHelpers';
 
 class BoardUi {
   constructor(parent, id) {
@@ -44,7 +43,7 @@ class BoardUi {
   }
 
   placeShip(startX, startY, isAxisX, length) {
-    const ship = generateShip(length, isAxisX);
+    const ship = generateShip(startX, startY, isAxisX, length);
     const startSquare = this.getSquare(startX, startY);
 
     startSquare.append(ship);
@@ -69,29 +68,16 @@ function generateSquare(x, y) {
   square.addEventListener('click', (event) => {
     const { currentTarget, target } = event;
 
-    const clickedX = Number(currentTarget.getAttribute('data-x'));
-    const clickedY = Number(currentTarget.getAttribute('data-y'));
-
-    const relativeX = target.getAttribute('data-relative-x');
-    const relativeY = target.getAttribute('data-relative-y');
-
-    let actualX = Number(clickedX);
-    let actualY = Number(clickedY);
-    if (relativeX) {
-      actualX += Number(relativeX);
-    }
-
-    if (relativeY) {
-      actualY += Number(relativeY);
-    }
+    const clickedX = Number(target.getAttribute('data-x'));
+    const clickedY = Number(target.getAttribute('data-y'));
 
     const boardId = Number(
       currentTarget.parentElement.getAttribute('data-board-id')
     );
 
     const squareData = {
-      x: actualX,
-      y: actualY,
+      x: clickedX,
+      y: clickedY,
 
       boardId,
     };
@@ -102,7 +88,7 @@ function generateSquare(x, y) {
   return square;
 }
 
-function generateShip(length, isAxisX) {
+function generateShip(startX, startY, isAxisX, length) {
   const parent = document.createElement('div');
   parent.classList.add('ship');
 
@@ -119,9 +105,11 @@ function generateShip(length, isAxisX) {
     parent.appendChild(shipPart);
 
     if (isAxisX) {
-      shipPart.setAttribute('data-relative-x', i);
+      shipPart.setAttribute('data-x', startX + i);
+      shipPart.setAttribute('data-y', startY);
     } else {
-      shipPart.setAttribute('data-relative-y', i);
+      shipPart.setAttribute('data-x', startX);
+      shipPart.setAttribute('data-y', startY + i);
     }
   }
 

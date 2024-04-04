@@ -2,8 +2,8 @@ import PubSub from 'pubsub-js';
 import GameElement from './scripts/GameElement';
 import endScreen from './components/endScreen';
 
-const parent1 = document.getElementById('board1');
-const parent2 = document.getElementById('board2');
+const parent1 = document.getElementById('board0');
+const parent2 = document.getElementById('board1');
 
 const gameElement0 = new GameElement('Player 1', false, parent1, 0);
 const gameElement1 = new GameElement('Player 2', true, parent2, 1);
@@ -11,8 +11,8 @@ const gameElements = [gameElement0, gameElement1];
 
 // temporary
 
-gameElement0.placeShip(2, 2, true, 3);
-gameElement1.placeShip(2, 2, true, 3);
+gameElement0.placeShip(4, 1, false, 2);
+gameElement1.placeShip(3, 2, true, 3);
 
 //
 

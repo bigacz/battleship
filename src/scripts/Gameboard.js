@@ -16,7 +16,7 @@ class Gameboard {
       throw new Error('Ship out of bound');
     }
 
-    const ship = new Ship(startX, startY, length);
+    const ship = new Ship(startX, startY, isAxisX, length);
     const coordinates = translateCoords(startX, startY, isAxisX, length);
 
     coordinates.forEach(([x, y]) => {

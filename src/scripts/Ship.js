@@ -1,9 +1,10 @@
 class Ship {
-  constructor(startX, startY, length) {
+  constructor(startX, startY, isAxisX, length) {
     this.hits = 0;
-    this.length = length;
     this.startX = startX;
     this.startY = startY;
+    this.isAxisX = isAxisX;
+    this.length = length;
   }
 
   hit() {

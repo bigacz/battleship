@@ -29,17 +29,14 @@ class BoardUi {
     }
   }
 
-  hitSquare(x, y) {
-    const square = this.getSquare(x, y);
+  receiveAttack(x, y) {
+    const attacked = this.board.querySelectorAll(
+      `[data-x='${x}'][data-y='${y}']`
+    );
 
-    square.classList.add('square-hit');
-  }
-
-  hitShip(startX, startY, relative) {
-    const square = this.getSquare(startX, startY);
-    const ship = square.children[0].children;
-
-    ship[relative].classList.add('ship-part-hit');
+    attacked.forEach((element) => {
+      element.classList.add('hit');
+    });
   }
 
   placeShip(startX, startY, isAxisX, length) {

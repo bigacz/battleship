@@ -8,17 +8,9 @@ class GameElement {
   }
 
   receiveAttack(x, y) {
+    this.boardUi.receiveAttack(x, y);
+
     this.player.receiveAttack(x, y);
-
-    const isShip = this.player.isShip(x, y);
-    if (isShip) {
-      const { startX, startY } = this.player.getShipStart(x, y);
-
-      const relative = startX === x ? y - startY : x - startX;
-
-      this.boardUi.hitShip(startX, startY, relative);
-    }
-    this.boardUi.hitSquare(x, y);
   }
 
   calculateAttack() {

@@ -9,12 +9,12 @@
   background-color: teal;
 }
 
-.square-hit {
+.square.hit {
   background-color: white;
 }
 
 .ship {
-  position: relative;
+  position: absolute;
   display: grid;
   grid-auto-rows: 40px;
   grid-auto-columns: 40px;
@@ -33,6 +33,6 @@
   background-color: yellow;
 }
 
-.ship-part-hit {
+.ship-part.hit {
   background-color: red;
 }

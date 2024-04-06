@@ -50,6 +50,22 @@ class BoardUi {
     const square = this.board.querySelector(`[data-x="${x}"][data-y="${y}"]`);
     return square;
   }
+
+  enableDragging() {
+    const ships = this.board.querySelectorAll('.ship');
+
+    ships.forEach((ship) => {
+      ship.setAttribute('draggable', 'true');
+    });
+  }
+
+  disableDragging() {
+    const ships = this.board.querySelectorAll('.ship');
+
+    ships.forEach((ship) => {
+      ship.setAttribute('draggable', 'false');
+    });
+  }
 }
 
 // Helper functions
@@ -82,6 +98,51 @@ function generateSquare(x, y) {
     PubSub.publish('square-clicked', squareData);
   });
 
+  square.addEventListener('dragenter', (event) => {
+    event.preventDefault();
+  });
+
+  square.addEventListener('dragover', (event) => {
+    event.preventDefault();
+  });
+
+  square.addEventListener('drop', (event) => {
+    const { target, currentTarget } = event;
+
+    const squareBoardId = Number(
+      currentTarget.parentElement.getAttribute('data-board-id')
+    );
+
+    const shipBoardId = Number(
+      dragged.parentElement.parentElement.getAttribute('data-board-id')
+    );
+
+    if (squareBoardId !== shipBoardId) {
+      return;
+    }
+
+    const shipHead = dragged.children[0];
+
+    const shipX = shipHead.getAttribute('data-x');
+    const shipY = shipHead.getAttribute('data-y');
+
+    const squareX = target.getAttribute('data-x');
+    const squareY = target.getAttribute('data-y');
+
+    const coordinatesData = {
+      oldX: shipX,
+      oldY: shipY,
+
+      newX: squareX,
+      newY: squareY,
+
+      boardId: squareBoardId,
+    };
+
+    console.log(coordinatesData);
+    PubSub.publish('ship-relocated', coordinatesData);
+  });
+
   return square;
 }
 
@@ -110,7 +171,14 @@ function generateShip(startX, startY, isAxisX, length) {
     }
   }
 
+  parent.addEventListener('dragstart', (event) => {
+    dragged = event.target;
+  });
+
   return parent;
 }
+
+// might want to change implementation
+let dragged;
 
 export default BoardUi;

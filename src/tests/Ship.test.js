@@ -3,7 +3,7 @@ import Ship from '../scripts/Ship';
 describe('Ship', () => {
   let ship;
   beforeEach(() => {
-    ship = new Ship(1, 2, 2);
+    ship = new Ship(1, 2, true, 2);
   });
 
   test('Instantiates correctly', () => {

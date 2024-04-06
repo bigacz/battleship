@@ -39,7 +39,7 @@ describe('Instantiation', () => {
 
 describe('placeShip', () => {
   test('on x axis', () => {
-    let ship = new Ship(1, 2, 3);
+    let ship = new Ship(1, 2, true, 3);
     gameboard.placeShip(1, 2, true, 3);
 
     expect(gameboard.board[1][2].ship).toEqual(ship);
@@ -48,7 +48,7 @@ describe('placeShip', () => {
   });
 
   test('on y axis', () => {
-    let ship = new Ship(2, 3, 2);
+    let ship = new Ship(2, 3, false, 2);
     gameboard.placeShip(2, 3, false, 2);
 
     expect(gameboard.board[2][3].ship).toEqual(ship);
@@ -140,6 +140,7 @@ describe('getShipCoords', () => {
     gameboard.board[3][4].ship = mockShipFloating;
     gameboard.board[3][5].ship = mockShipFloating;
     gameboard.board[3][6].ship = mockShipFloating;
+
     expect(gameboard.getShipCoords(3, 4).sort()).toEqual(
       [
         [3, 3],

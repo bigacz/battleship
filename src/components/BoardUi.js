@@ -1,6 +1,8 @@
 import PubSub from 'pubsub-js';
 
 class BoardUi {
+  isDraggingEnabled = false;
+
   constructor(parent, id) {
     this.board = parent;
     this.id = id;
@@ -40,7 +42,8 @@ class BoardUi {
   }
 
   placeShip(startX, startY, isAxisX, length) {
-    const ship = generateShip(startX, startY, isAxisX, length);
+    const isDraggable = this.isDraggingEnabled;
+    const ship = generateShip(startX, startY, isAxisX, length, isDraggable);
     const startSquare = this.getSquare(startX, startY);
 
     startSquare.append(ship);
@@ -60,6 +63,7 @@ class BoardUi {
   }
 
   enableDragging() {
+    this.isDraggingEnabled = true;
     const ships = this.board.querySelectorAll('.ship');
 
     ships.forEach((ship) => {
@@ -68,6 +72,7 @@ class BoardUi {
   }
 
   disableDragging() {
+    this.isDraggingEnabled = false;
     const ships = this.board.querySelectorAll('.ship');
 
     ships.forEach((ship) => {
@@ -87,7 +92,6 @@ function generateSquare(x, y) {
   square.setAttribute('data-y', y);
 
   square.addEventListener('click', (event) => {
-    console.log('elo');
     const { currentTarget, target } = event;
 
     const clickedX = Number(target.getAttribute('data-x'));
@@ -154,7 +158,7 @@ function generateSquare(x, y) {
   return square;
 }
 
-function generateShip(startX, startY, isAxisX, length) {
+function generateShip(startX, startY, isAxisX, length, isDraggable) {
   const parent = document.createElement('div');
   parent.classList.add('ship');
 
@@ -182,6 +186,8 @@ function generateShip(startX, startY, isAxisX, length) {
   parent.addEventListener('dragstart', (event) => {
     dragged = event.target;
   });
+
+  parent.setAttribute('draggable', isDraggable);
 
   return parent;
 }

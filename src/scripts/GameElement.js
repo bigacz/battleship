@@ -43,6 +43,23 @@ class GameElement {
     this.boardUi.placeShip(startX, startY, isAxisX, length);
   }
 
+  relocateShip(oldX, oldY, newX, newY) {
+    const { isAxisX, length } = this.player.getShip(oldX, oldY);
+
+    this.player.removeShip(oldX, oldY);
+
+    const isLegal = this.player.isLegalToPlaceShip(newX, newY, isAxisX, length);
+
+    if (isLegal) {
+      this.boardUi.removeShip(oldX, oldY);
+
+      this.player.placeShip(newX, newY, isAxisX, length);
+      this.boardUi.placeShip(newX, newY, isAxisX, length);
+    } else {
+      this.player.placeShip(oldX, oldY, isAxisX, length);
+    }
+  }
+
   removeShip(startX, startY) {
     // change order
     this.boardUi.removeShip(startX, startY);

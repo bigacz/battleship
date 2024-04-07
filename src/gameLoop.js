@@ -8,7 +8,8 @@ PubSub.subscribe('ship-dropped', (msg, data) => {
     return;
   }
 
-  game.getElement(boardId).removeShip(oldX, oldY);
+  const gameElement = game.getElement(boardId);
+  gameElement.relocateShip(oldX, oldY, newX, newY);
 });
 
 PubSub.subscribe('square-clicked', (msg, data) => {

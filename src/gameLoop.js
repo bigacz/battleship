@@ -1,6 +1,16 @@
 import PubSub from 'pubsub-js';
 import game from './game';
 
+PubSub.subscribe('ship-dropped', (msg, data) => {
+  const { oldX, oldY, newX, newY, boardId } = data;
+
+  if (oldX === newX && oldY === newY) {
+    return;
+  }
+
+  game.getElement(boardId).removeShip(oldX, oldY);
+});
+
 PubSub.subscribe('square-clicked', (msg, data) => {
   const { boardId, x, y } = data;
   const other = game.getOther();

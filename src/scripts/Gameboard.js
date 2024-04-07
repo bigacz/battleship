@@ -24,6 +24,14 @@ class Gameboard {
     });
   }
 
+  removeShip(startX, startY) {
+    const shipCoords = this.getShipCoords(startX, startY);
+
+    shipCoords.forEach(([x, y]) => {
+      this.board[x][y].ship = null;
+    });
+  }
+
   receiveAttack(x, y) {
     const square = this.board[x][y];
     if (square.isHit === false) {

@@ -46,6 +46,14 @@ class BoardUi {
     startSquare.append(ship);
   }
 
+  removeShip(startX, startY) {
+    const square = this.board.querySelector(
+      `.square[data-x='${startX}'][data-y='${startY}']`
+    );
+
+    square.textContent = '';
+  }
+
   getSquare(x, y) {
     const square = this.board.querySelector(`[data-x="${x}"][data-y="${y}"]`);
     return square;
@@ -79,6 +87,7 @@ function generateSquare(x, y) {
   square.setAttribute('data-y', y);
 
   square.addEventListener('click', (event) => {
+    console.log('elo');
     const { currentTarget, target } = event;
 
     const clickedX = Number(target.getAttribute('data-x'));
@@ -123,11 +132,11 @@ function generateSquare(x, y) {
 
     const shipHead = dragged.children[0];
 
-    const shipX = shipHead.getAttribute('data-x');
-    const shipY = shipHead.getAttribute('data-y');
+    const shipX = Number(shipHead.getAttribute('data-x'));
+    const shipY = Number(shipHead.getAttribute('data-y'));
 
-    const squareX = target.getAttribute('data-x');
-    const squareY = target.getAttribute('data-y');
+    const squareX = Number(target.getAttribute('data-x'));
+    const squareY = Number(target.getAttribute('data-y'));
 
     const coordinatesData = {
       oldX: shipX,
@@ -139,8 +148,7 @@ function generateSquare(x, y) {
       boardId: squareBoardId,
     };
 
-    console.log(coordinatesData);
-    PubSub.publish('ship-relocated', coordinatesData);
+    PubSub.publish('ship-dropped', coordinatesData);
   });
 
   return square;

@@ -151,3 +151,17 @@ describe('getShipCoords', () => {
     );
   });
 });
+
+describe('removeShip', () => {
+  test('sets ship to null', () => {
+    gameboard.board[3][3].ship = mockShipFloating;
+    gameboard.board[3][4].ship = mockShipFloating;
+    gameboard.board[3][5].ship = mockShipFloating;
+
+    gameboard.removeShip(3, 3);
+
+    expect(gameboard.board[3][3].ship).toBe(null);
+    expect(gameboard.board[3][4].ship).toBe(null);
+    expect(gameboard.board[3][5].ship).toBe(null);
+  });
+});

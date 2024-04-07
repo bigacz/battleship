@@ -11,6 +11,10 @@ class Player {
     this.board.placeShip(startX, startY, isAxisX, length);
   }
 
+  removeShip(startX, startY) {
+    this.board.removeShip(startX, startY);
+  }
+
   receiveAttack(x, y) {
     this.board.receiveAttack(x, y);
   }

@@ -43,8 +43,22 @@ class GameElement {
     this.boardUi.placeShip(startX, startY, isAxisX, length);
   }
 
+  removeShip(startX, startY) {
+    // change order
+    this.boardUi.removeShip(startX, startY);
+    this.player.removeShip(startX, startY);
+  }
+
   getName() {
     return this.player.name;
+  }
+
+  enableDragging() {
+    this.boardUi.enableDragging();
+  }
+
+  disableDragging() {
+    this.boardUi.disableDragging();
   }
 }
 

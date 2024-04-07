@@ -50,6 +50,10 @@ function getOther() {
   return other;
 }
 
+function getElement(id) {
+  return gameElements[id];
+}
+
 function enableEndScreen() {
   const winner = getWinner();
   endScreen.changeWinner(winner);
@@ -69,6 +73,7 @@ const game = {
 
   getCurrent,
   getOther,
+  getElement,
 
   enableEndScreen,
   disableEndScreen,

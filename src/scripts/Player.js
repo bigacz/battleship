@@ -38,6 +38,14 @@ class Player {
   getShipStart(x, y) {
     return this.board.getShipStart(x, y);
   }
+
+  isLegalToPlaceShip(x, y) {
+    return this.board.isLegalToPlaceShip(x, y);
+  }
+
+  getShip(x, y) {
+    return this.board.getShip(x, y);
+  }
 }
 
 export default Player;

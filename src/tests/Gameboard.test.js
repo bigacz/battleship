@@ -165,3 +165,11 @@ describe('removeShip', () => {
     expect(gameboard.board[3][5].ship).toBe(null);
   });
 });
+
+describe('getShip', () => {
+  test('returns ship', () => {
+    gameboard.board[3][3].ship = mockShipFloating;
+
+    expect(gameboard.getShip(3, 3)).toBe(mockShipFloating);
+  });
+});

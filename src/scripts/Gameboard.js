@@ -133,6 +133,10 @@ class Gameboard {
   isShip(x, y) {
     return this.board[x][y].ship != null;
   }
+
+  getShip(x, y) {
+    return this.board[x][y].ship;
+  }
 }
 
 // Helper functions

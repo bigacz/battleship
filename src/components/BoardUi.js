@@ -37,7 +37,12 @@ class BoardUi {
     );
 
     attacked.forEach((element) => {
-      element.classList.add('hit');
+      const isShip = element.classList.contains('ship-part');
+      if (isShip) {
+        element.classList.add('ship-part-hit');
+      } else {
+        element.classList.add('square-hit');
+      }
     });
   }
 
@@ -185,6 +190,28 @@ function generateShip(startX, startY, isAxisX, length, isDraggable) {
 
   parent.addEventListener('dragstart', (event) => {
     dragged = event.target;
+  });
+
+  parent.addEventListener('dblclick', (event) => {
+    const { currentTarget } = event;
+
+    const boardId = Number(
+      currentTarget.parentElement.parentElement.getAttribute('data-board-id')
+    );
+
+    const shipHead = currentTarget.children[0];
+
+    const shipX = Number(shipHead.getAttribute('data-x'));
+    const shipY = Number(shipHead.getAttribute('data-y'));
+
+    const coordinatesData = {
+      shipX,
+      shipY,
+
+      boardId,
+    };
+
+    PubSub.publish('ship-rotated', coordinatesData);
   });
 
   parent.setAttribute('draggable', isDraggable);

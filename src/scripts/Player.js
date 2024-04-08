@@ -39,8 +39,8 @@ class Player {
     return this.board.getShipStart(x, y);
   }
 
-  isLegalToPlaceShip(x, y) {
-    return this.board.isLegalToPlaceShip(x, y);
+  isLegalToPlaceShip(x, y, isAxisX, length) {
+    return this.board.isLegalToPlaceShip(x, y, isAxisX, length);
   }
 
   getShip(x, y) {

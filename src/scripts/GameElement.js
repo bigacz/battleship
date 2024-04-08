@@ -60,6 +60,28 @@ class GameElement {
     }
   }
 
+  rotateShip(shipX, shipY) {
+    const { isAxisX, length } = this.player.getShip(shipX, shipY);
+
+    this.player.removeShip(shipX, shipY);
+
+    const isLegal = this.player.isLegalToPlaceShip(
+      shipX,
+      shipY,
+      !isAxisX,
+      length
+    );
+
+    if (isLegal) {
+      this.boardUi.removeShip(shipX, shipY);
+
+      this.player.placeShip(shipX, shipY, !isAxisX, length);
+      this.boardUi.placeShip(shipX, shipY, !isAxisX, length);
+    } else {
+      this.player.placeShip(shipX, shipY, isAxisX, length);
+    }
+  }
+
   removeShip(startX, startY) {
     // change order
     this.boardUi.removeShip(startX, startY);

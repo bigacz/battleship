@@ -12,6 +12,13 @@ PubSub.subscribe('ship-dropped', (msg, data) => {
   gameElement.relocateShip(oldX, oldY, newX, newY);
 });
 
+PubSub.subscribe('ship-rotated', (msg, data) => {
+  const { shipX, shipY, boardId } = data;
+
+  const gameElement = game.getElement(boardId);
+  gameElement.rotateShip(shipX, shipY);
+});
+
 PubSub.subscribe('square-clicked', (msg, data) => {
   const { boardId, x, y } = data;
   const other = game.getOther();

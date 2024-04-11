@@ -86,18 +86,43 @@ function getShipAdjacentCoords(startX, startY, isAxisX, length) {
   return adjacentCoords;
 }
 
-function shuffleArray(preArray) {
-  let array = [...preArray];
+function generateRandomShips() {
+  const shipsLengths = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
+  let validCoords = shuffleArray(generateBoardCoords());
+  const ships = [];
 
-  for (let i = array.length - 1; i > 0; i -= 1) {
-    let randomIndex = Math.floor((i + 1) * Math.random());
+  shipsLengths.forEach((length) => {
+    const isAxisX = Math.random() < 0.5;
 
-    const temp = array[randomIndex];
-    array[randomIndex] = array[i];
-    array[i] = temp;
-  }
+    for (let i = 0; i < validCoords.length; i += 1) {
+      const [startX, startY] = validCoords[i];
 
-  return array;
+      const shipParameters = [startX, startY, isAxisX, length];
+      const tailCoords = getTailCoords(...shipParameters);
+
+      const tailStringified = tailCoords.toString();
+
+      const isValid = validCoords.some((coords) => {
+        const coordsStringified = coords.toString();
+
+        return tailStringified === coordsStringified;
+      });
+
+      if (isValid) {
+        const adjacentCoords = getShipAdjacentCoords(...shipParameters);
+        const shipCoords = translateCoords(...shipParameters);
+        const coordsToRemove = adjacentCoords.concat(shipCoords);
+
+        validCoords = removeCoordsFromArray(validCoords, coordsToRemove);
+
+        ships.push(shipParameters);
+
+        break;
+      }
+    }
+  });
+
+  return ships;
 }
 
 function getAdjacentCoords(midX, midY) {
@@ -129,9 +154,64 @@ function isInBound(x, y) {
   return isX && isY;
 }
 
+function generateBoardCoords() {
+  const coords = [];
+
+  for (let x = 0; x < 10; x += 1) {
+    for (let y = 0; y < 10; y += 1) {
+      coords.push([x, y]);
+    }
+  }
+
+  return coords;
+}
+
+// Helpers
+
+function getTailCoords(startX, startY, isAxisX, length) {
+  let tail;
+
+  if (isAxisX) {
+    const lastX = startX + length - 1;
+    tail = [lastX, startY];
+  } else {
+    const lastY = startY + length - 1;
+    tail = [startX, lastY];
+  }
+
+  return tail;
+}
+
+function removeCoordsFromArray(array, removeValues) {
+  const filtered = array.filter((coords) => {
+    const index = removeValues.findIndex(
+      (removeCoords) => coords.toString() === removeCoords.toString()
+    );
+
+    return index === -1;
+  });
+
+  return filtered;
+}
+
+function shuffleArray(preArray) {
+  let array = [...preArray];
+
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    let randomIndex = Math.floor((i + 1) * Math.random());
+
+    const temp = array[randomIndex];
+    array[randomIndex] = array[i];
+    array[i] = temp;
+  }
+
+  return array;
+}
+
 export {
   translateCoords,
   isShipOutOfBound,
   getAdjacentCoords,
   getShipAdjacentCoords,
+  generateRandomShips,
 };

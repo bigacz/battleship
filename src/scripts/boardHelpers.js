@@ -21,11 +21,69 @@ function isShipOutOfBound(startX, startY, isAxisX, length) {
 }
 
 function getShipAdjacentCoords(startX, startY, isAxisX, length) {
+  const adjacentCoords = [];
+
   if (isAxisX) {
-    for (let x = startX - 1; x - startX < length; x += 1) {
-      for (let i = -1; i <= 1; i += 1) {}
+    for (let x = startX; x - startX < length; x += 1) {
+      const lower = [x, startY - 1];
+      const upper = [x, startY + 1];
+
+      if (isInBound(...lower)) {
+        adjacentCoords.push(lower);
+      }
+
+      if (isInBound(...upper)) {
+        adjacentCoords.push(upper);
+      }
+    }
+
+    const leftX = startX - 1;
+    const rightX = startX + length;
+
+    for (let i = -1; i <= 1; i += 1) {
+      const leftCoords = [leftX, startY + i];
+      const rightCoords = [rightX, startY + i];
+
+      if (isInBound(...leftCoords)) {
+        adjacentCoords.push(leftCoords);
+      }
+
+      if (isInBound(...rightCoords)) {
+        adjacentCoords.push(rightCoords);
+      }
+    }
+  } else {
+    for (let y = startY; y - startY < length; y += 1) {
+      const left = [startX - 1, y];
+      const right = [startX + 1, y];
+
+      if (isInBound(...left)) {
+        adjacentCoords.push(left);
+      }
+
+      if (isInBound(...right)) {
+        adjacentCoords.push(right);
+      }
+    }
+
+    const upY = startY - 1;
+    const downY = startY + length;
+
+    for (let i = -1; i <= 1; i += 1) {
+      const upCoords = [startX + i, upY];
+      const downCoords = [startX + i, downY];
+
+      if (isInBound(...upCoords)) {
+        adjacentCoords.push(upCoords);
+      }
+
+      if (isInBound(...downCoords)) {
+        adjacentCoords.push(downCoords);
+      }
     }
   }
+
+  return adjacentCoords;
 }
 
 function shuffleArray(preArray) {
@@ -56,7 +114,15 @@ function getAdjacentCoords(midX, midY) {
   return coordinates;
 }
 
+// rename - confusing
 function isOutBound(x, y) {
+  const isX = x >= 0 && x <= 9;
+  const isY = y >= 0 && y <= 9;
+
+  return isX && isY;
+}
+
+function isInBound(x, y) {
   const isX = x >= 0 && x <= 9;
   const isY = y >= 0 && y <= 9;
 

@@ -26,7 +26,7 @@ describe('isShipOutOfBound', () => {
 
 describe('getShipAdjacentCoords', () => {
   test('ship in the middle', () => {
-    expect(getShipAdjacentCoords(2, 2, true, 3)).toBe(
+    expect(getShipAdjacentCoords(2, 2, true, 3).sort()).toEqual([
       [1, 1],
       [1, 2],
       [1, 3],
@@ -38,16 +38,35 @@ describe('getShipAdjacentCoords', () => {
       [4, 3],
       [5, 1],
       [5, 2],
-      [5, 3]
-    );
+      [5, 3],
+    ]);
   });
 
   test('ship at the edge', () => {
-    expect(getShipAdjacentCoords(0, 0, true, 2)).toBe(
-      [0, 1],
-      [1, 1],
-      [2, 0],
-      [2, 1]
+    expect(getShipAdjacentCoords(0, 0, true, 2).sort()).toEqual(
+      [
+        [0, 1],
+        [1, 1],
+        [2, 0],
+        [2, 1],
+      ].sort()
+    );
+  });
+
+  test('ship in y axis', () => {
+    expect(getShipAdjacentCoords(2, 2, false, 2).sort()).toEqual(
+      [
+        [1, 1],
+        [2, 1],
+        [3, 1],
+        [1, 2],
+        [3, 2],
+        [1, 3],
+        [3, 3],
+        [1, 4],
+        [2, 4],
+        [3, 4],
+      ].sort()
     );
   });
 });

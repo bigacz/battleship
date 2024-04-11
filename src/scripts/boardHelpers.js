@@ -20,6 +20,28 @@ function isShipOutOfBound(startX, startY, isAxisX, length) {
   return endCoordinate - 1 > 9;
 }
 
+function getShipAdjacentCoords(startX, startY, isAxisX, length) {
+  if (isAxisX) {
+    for (let x = startX - 1; x - startX < length; x += 1) {
+      for (let i = -1; i <= 1; i += 1) {}
+    }
+  }
+}
+
+function shuffleArray(preArray) {
+  let array = [...preArray];
+
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    let randomIndex = Math.floor((i + 1) * Math.random());
+
+    const temp = array[randomIndex];
+    array[randomIndex] = array[i];
+    array[i] = temp;
+  }
+
+  return array;
+}
+
 function getAdjacentCoords(midX, midY) {
   const coordinates = [];
 
@@ -41,4 +63,9 @@ function isOutBound(x, y) {
   return isX && isY;
 }
 
-export { translateCoords, isShipOutOfBound, getAdjacentCoords };
+export {
+  translateCoords,
+  isShipOutOfBound,
+  getAdjacentCoords,
+  getShipAdjacentCoords,
+};

@@ -2,7 +2,10 @@ import {
   isShipOutOfBound,
   translateCoords,
   getShipAdjacentCoords,
+  generateRandomShips,
 } from '../scripts/boardHelpers';
+
+jest.spyOn(global.Math, 'random').mockReturnValue(0.000001);
 
 describe('translateCoords', () => {
   test('works on X axis', () => {
@@ -68,5 +71,23 @@ describe('getShipAdjacentCoords', () => {
         [3, 4],
       ].sort()
     );
+  });
+});
+
+describe('generateRandomShips', () => {
+  test('returns valid ship parameters', () => {
+    expect(generateRandomShips()).toEqual([
+      [0, 1, true, 4],
+      [0, 3, true, 3],
+      [0, 5, true, 3],
+      [0, 7, true, 2],
+      [0, 9, true, 2],
+
+      [3, 7, true, 2],
+      [3, 9, true, 1],
+      [4, 3, true, 1],
+      [4, 5, true, 1],
+      [5, 0, true, 1],
+    ]);
   });
 });

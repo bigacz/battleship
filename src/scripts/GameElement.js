@@ -1,5 +1,6 @@
 import BoardUi from '../components/BoardUi';
 import Player from './Player';
+import { generateRandomShips } from './boardHelpers';
 
 class GameElement {
   constructor(name, isAi, parent, id) {
@@ -98,6 +99,15 @@ class GameElement {
 
   disableDragging() {
     this.boardUi.disableDragging();
+  }
+
+  placeRandomShips() {
+    const shipsParameters = generateRandomShips();
+
+    shipsParameters.forEach((parameters) => {
+      this.player.placeShip(...parameters);
+      this.boardUi.placeShip(...parameters);
+    });
   }
 }
 

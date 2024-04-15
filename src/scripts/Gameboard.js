@@ -1,6 +1,7 @@
 import Ship from './Ship';
 import {
   getAdjacentCoords,
+  getShipAdjacentCoords,
   isShipOutOfBound,
   translateCoords,
 } from './boardHelpers';
@@ -72,7 +73,13 @@ class Gameboard {
       return false;
     }
 
-    const adjacentCoords = getAdjacentCoords(startX, startY);
+    const adjacentCoords = getShipAdjacentCoords(
+      startX,
+      startY,
+      isAxisX,
+      length
+    );
+
     const isShipAdjacent = adjacentCoords.some(([x, y]) => {
       const square = this.board[x][y];
 

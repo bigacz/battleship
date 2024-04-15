@@ -31,7 +31,11 @@ PubSub.subscribe('square-clicked', (msg, data) => {
 
     const isShip = other.isShip(x, y);
 
-    checkForEnd();
+    if (isEnd()) {
+      endGame();
+
+      return;
+    }
 
     if (!isShip) {
       startNextRound();
@@ -44,12 +48,34 @@ function startNextRound() {
   checkIfCurrentIsAi();
 }
 
-function checkForEnd() {
+function playAiRound() {
   const other = game.getOther();
 
-  if (other.areAllSunk()) {
-    game.enableEndScreen();
+  const [x, y] = other.calculateAttack();
+  other.receiveAttack(x, y);
+
+  if (isEnd()) {
+    endGame();
+
+    return;
   }
+
+  const isShip = other.isShip(x, y);
+  if (isShip) {
+    playAiRound();
+  } else {
+    startNextRound();
+  }
+}
+
+function endGame() {
+  game.enableEndScreen();
+}
+
+function isEnd() {
+  const other = game.getOther();
+
+  return other.areAllSunk();
 }
 
 function checkIfCurrentIsAi() {
@@ -57,22 +83,6 @@ function checkIfCurrentIsAi() {
 
   if (current.isAi()) {
     playAiRound();
-  }
-}
-
-function playAiRound() {
-  const other = game.getOther();
-
-  const [x, y] = other.calculateAttack();
-  other.receiveAttack(x, y);
-
-  checkForEnd();
-
-  const isShip = other.isShip(x, y);
-  if (isShip) {
-    playAiRound();
-  } else {
-    startNextRound();
   }
 }
 

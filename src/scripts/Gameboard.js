@@ -141,8 +141,27 @@ class Gameboard {
     return this.board[x][y].ship != null;
   }
 
+  isSunk(x, y) {
+    const { ship } = this.board[x][y];
+
+    if (ship != null) {
+      return ship.isSunk();
+    }
+  }
+
   getShip(x, y) {
     return this.board[x][y].ship;
+  }
+
+  getShipAdjacentCoords(x, y) {
+    const { ship } = this.board[x][y];
+    if (ship == null) {
+      return [];
+    }
+
+    const { startX, startY, isAxisX, length } = ship;
+
+    return getShipAdjacentCoords(startX, startY, isAxisX, length);
   }
 }
 

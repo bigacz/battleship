@@ -12,6 +12,11 @@ class GameElement {
     this.boardUi.receiveAttack(x, y);
 
     this.player.receiveAttack(x, y);
+
+    const isSunk = this.player.isSunk(x, y) === true;
+    if (isSunk) {
+      this.explodeShip(x, y);
+    }
   }
 
   calculateAttack() {
@@ -84,9 +89,8 @@ class GameElement {
   }
 
   removeShip(startX, startY) {
-    // change order
-    this.boardUi.removeShip(startX, startY);
     this.player.removeShip(startX, startY);
+    this.boardUi.removeShip(startX, startY);
   }
 
   getName() {
@@ -107,6 +111,15 @@ class GameElement {
     shipsParameters.forEach((parameters) => {
       this.player.placeShip(...parameters);
       this.boardUi.placeShip(...parameters);
+    });
+  }
+
+  explodeShip(squareX, squareY) {
+    const adjacent = this.player.getShipAdjacentCoords(squareX, squareY);
+
+    adjacent.forEach(([x, y]) => {
+      this.player.receiveAttack(x, y);
+      this.boardUi.receiveAttack(x, y);
     });
   }
 }

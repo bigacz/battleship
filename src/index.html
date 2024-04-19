@@ -14,5 +14,58 @@
         <h1 id="endscreen-winner">Someone won, someone lost!</h1>
       </div>
     </div>
+
+    <div class="startscreen startscreen-active" id="startscreen">
+      <div class="startscreen-dialogbox">
+        <h1 class="startscreen-header">Battleship</h1>
+        <input
+          placeholder="Player 1"
+          type="text"
+          id="startscreen-name-0"
+          class="startscreen-name-0"
+        />
+
+        <button
+          class="startscreen-switch"
+          id="startscreen-switch"
+          type="button"
+        >
+          Sw
+        </button>
+        <input
+          placeholder="Player 2"
+          type="text"
+          id="startscreen-name-1"
+          class="startscreen-name-1"
+        />
+
+        <div class="startscreen-mode-wrapper-0">
+          <input
+            type="radio"
+            name="mode"
+            id="startscreen-mode-0"
+            class="startscreen-mode-0"
+            value="computer"
+            checked
+          />
+          <label for="startscreen-mode-0">vs Computer</label>
+        </div>
+
+        <div class="startscreen-mode-wrapper-1">
+          <input
+            type="radio"
+            name="mode"
+            id="startscreen-mode-1"
+            class="startscreen-mode-1"
+            value="player"
+          />
+          <label for="startscreen-mode-1">vs Player</label>
+        </div>
+
+        <button class="startscreen-play" id="startscreen-play" type="button">
+          Play
+        </button>
+      </div>
+    </div>
   </body>
 </html>

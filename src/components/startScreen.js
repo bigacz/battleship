@@ -1,3 +1,7 @@
+import PubSub from 'pubsub-js';
+
+const wrapper = document.getElementById('startscreen');
+
 const nameParagraph0 = document.getElementById('startscreen-name-0');
 const nameParagraph1 = document.getElementById('startscreen-name-1');
 
@@ -9,6 +13,16 @@ const switchButton = document.getElementById('startscreen-switch');
 const playButton = document.getElementById('startscreen-play');
 
 let areComputers = [false, true];
+
+function enable() {
+  wrapper.classList.add('startscreen-active');
+}
+
+function disable() {
+  wrapper.classList.remove('startscreen-active');
+}
+
+// Helpers
 
 function getNames() {
   const name0 = nameParagraph0.value;
@@ -44,8 +58,6 @@ function disableSwitchButton() {
   switchButton.classList.remove('startscreen-switch-active');
 }
 
-// Helpers
-
 function switchPlayers() {
   if (isSelectedComputer()) {
     areComputers = areComputers.toReversed();
@@ -76,4 +88,11 @@ modeRadios.forEach((radio) => {
 
 switchButton.addEventListener('click', () => {
   switchPlayers();
+});
+
+playButton.addEventListener('click', () => {
+  const names = getNames();
+  PubSub.publish('start-game', { areComputers, names });
+
+  disable();
 });

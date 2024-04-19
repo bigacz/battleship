@@ -69,3 +69,11 @@
 .startscreen-play {
   grid-area: play;
 }
+
+.startscreen-switch {
+  display: none;
+}
+
+.startscreen-switch-active {
+  display: block;
+}

@@ -36,6 +36,14 @@ function isSelectedComputer() {
   return mode0;
 }
 
+function enableSwitchButton() {
+  switchButton.classList.add('startscreen-switch-active');
+}
+
+function disableSwitchButton() {
+  switchButton.classList.remove('startscreen-switch-active');
+}
+
 // Helpers
 
 function switchPlayers() {
@@ -49,8 +57,10 @@ function switchPlayers() {
 function changeMode() {
   if (isSelectedComputer()) {
     areComputers = [false, true];
+    enableSwitchButton();
   } else {
     areComputers = [false, false];
+    disableSwitchButton();
   }
 
   updateNames(...areComputers);

@@ -31,19 +31,14 @@ class BoardUi {
     }
   }
 
-  receiveAttack(x, y) {
-    const attacked = this.board.querySelectorAll(
-      `[data-x='${x}'][data-y='${y}']`
-    );
+  receiveAttack(x, y, isShip) {
+    const attacked = this.board.querySelector(`[data-x='${x}'][data-y='${y}']`);
 
-    attacked.forEach((element) => {
-      const isShip = element.classList.contains('ship-part');
-      if (isShip) {
-        element.classList.add('ship-part-hit');
-      } else {
-        element.classList.add('square-hit');
-      }
-    });
+    if (isShip) {
+      attacked.classList.add('square-ship-hit');
+    } else {
+      attacked.classList.add('square-hit');
+    }
   }
 
   placeShip(startX, startY, isAxisX, length) {
@@ -82,6 +77,12 @@ class BoardUi {
 
     ships.forEach((ship) => {
       ship.setAttribute('draggable', 'false');
+    });
+  }
+
+  hideShips() {
+    this.board.childNodes.forEach((element) => {
+      element.replaceChildren();
     });
   }
 }

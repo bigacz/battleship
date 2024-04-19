@@ -9,9 +9,10 @@ class GameElement {
   }
 
   receiveAttack(x, y) {
-    this.boardUi.receiveAttack(x, y);
+    const isShip = this.player.isShip(x, y);
 
     this.player.receiveAttack(x, y);
+    this.boardUi.receiveAttack(x, y, isShip);
 
     const isSunk = this.player.isSunk(x, y) === true;
     if (isSunk) {

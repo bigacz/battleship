@@ -1,0 +1,71 @@
+.startscreen {
+  display: none;
+  position: absolute;
+  height: 100dvh;
+  width: 100dvw;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.startscreen-active {
+  display: block;
+}
+
+.startscreen-dialogbox {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 40%;
+  left: 50%;
+
+  background-color: brown;
+  padding: 1rem;
+
+  display: grid;
+  grid-template-areas:
+    'header header header'
+    'name0 switch name1'
+    'mode0 . mode1'
+    'play play play';
+
+  grid-template-columns: 8rem 5rem 8rem;
+  grid-template-rows:
+    max-content max-content 2rem
+    2rem;
+
+  gap: 1rem;
+}
+
+.startscreen-header {
+  text-align: center;
+  grid-area: header;
+}
+
+.startscreen-name-0 {
+  text-align: center;
+  grid-area: name0;
+}
+
+.startscreen-name-1 {
+  text-align: center;
+  grid-area: name1;
+}
+
+.startscreen-mode-wrapper-0 {
+  grid-area: mode0;
+}
+.startscreen-mode-wrapper-1 {
+  grid-area: mode1;
+}
+
+.startscreen-mode-0 {
+}
+
+.startscreen-mode-1 {
+}
+
+.startscreen-mode-active {
+  background-color: red;
+}
+
+.startscreen-play {
+  grid-area: play;
+}

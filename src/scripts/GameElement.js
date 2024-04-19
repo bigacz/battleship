@@ -28,7 +28,7 @@ class GameElement {
   }
 
   cleanBoard() {
-    // TODO: Add logic board cleaning
+    this.player.cleanBoard();
     this.boardUi.cleanBoard();
   }
 

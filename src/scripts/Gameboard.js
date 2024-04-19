@@ -163,6 +163,10 @@ class Gameboard {
 
     return getShipAdjacentCoords(startX, startY, isAxisX, length);
   }
+
+  cleanBoard() {
+    this.board = generateBoard();
+  }
 }
 
 // Helper functions

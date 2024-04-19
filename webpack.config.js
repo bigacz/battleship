@@ -37,4 +37,12 @@ module.exports = {
     }),
   ],
   cache: false,
+  devServer: {
+    hot: true,
+    open: true,
+    watchFiles: ['src/**/*'],
+  },
 };
+
+//  watchContentBase: true,
+//  contentBase: path.resolve(__dirname, 'dist'),

@@ -3,6 +3,8 @@ import PubSub from 'pubsub-js';
 class BoardUi {
   isDraggingEnabled = false;
 
+  shipsContainer = [];
+
   constructor(parent, id) {
     this.board = parent;
     this.id = id;
@@ -81,8 +83,27 @@ class BoardUi {
   }
 
   hideShips() {
-    this.board.childNodes.forEach((element) => {
-      element.replaceChildren();
+    this.board.childNodes.forEach((square) => {
+      const ship = square.getElementsByClassName('ship')[0];
+
+      if (ship) {
+        ship.remove();
+
+        this.shipsContainer.push(ship);
+      }
+    });
+  }
+
+  showShips() {
+    this.shipsContainer.forEach((ship) => {
+      const firstPart = ship.childNodes[0];
+
+      const x = Number(firstPart.getAttribute('data-x'));
+      const y = Number(firstPart.getAttribute('data-y'));
+
+      const square = this.getSquare(x, y);
+
+      square.appendChild(ship);
     });
   }
 }

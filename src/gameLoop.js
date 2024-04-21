@@ -1,89 +1,66 @@
 import PubSub from 'pubsub-js';
 import game from './game';
 
-PubSub.subscribe('ship-dropped', (msg, data) => {
-  const { oldX, oldY, newX, newY, boardId } = data;
+async function gameLoop() {
+  let isSomeoneSunk = game.isSomeoneSunk();
 
-  if (oldX === newX && oldY === newY) {
-    return;
-  }
+  while (!game.isSomeoneSunk()) {
+    const current = game.getCurrent();
+    const other = game.getOther();
 
-  const gameElement = game.getElement(boardId);
-  gameElement.relocateShip(oldX, oldY, newX, newY);
-});
+    if (current.isAi()) {
+      let lastWasShip = true;
 
-PubSub.subscribe('ship-rotated', (msg, data) => {
-  const { shipX, shipY, boardId } = data;
+      while (lastWasShip && !isSomeoneSunk) {
+        const [x, y] = other.calculateAttack();
+        other.receiveAttack(x, y);
 
-  const gameElement = game.getElement(boardId);
-  gameElement.rotateShip(shipX, shipY);
-});
+        lastWasShip = other.isShip(x, y);
+        isSomeoneSunk = game.isSomeoneSunk();
+      }
+    } else {
+      let lastWasShip = true;
 
-PubSub.subscribe('square-clicked', (msg, data) => {
-  const { boardId, x, y } = data;
-  const other = game.getOther();
+      while (lastWasShip && !isSomeoneSunk) {
+        // eslint-disable-next-line
+        const clicked = await createSquareClickPromise();
+        if (clicked) {
+          const { x, y } = clicked;
 
-  const otherId = game.getOtherId();
-  const isHit = other.isHit(x, y);
+          other.receiveAttack(x, y);
 
-  if (otherId === boardId && !game.isSomeoneSunk() && !isHit) {
-    other.receiveAttack(x, y);
-
-    const isShip = other.isShip(x, y);
-
-    if (isEnd()) {
-      endGame();
-
-      return;
+          lastWasShip = other.isShip(x, y);
+          isSomeoneSunk = game.isSomeoneSunk();
+        }
+      }
     }
 
-    if (!isShip) {
-      startNextRound();
-    }
-  }
-});
-
-function startNextRound() {
-  game.switchElements();
-  checkIfCurrentIsAi();
-}
-
-function playAiRound() {
-  const other = game.getOther();
-
-  const [x, y] = other.calculateAttack();
-  other.receiveAttack(x, y);
-
-  if (isEnd()) {
-    endGame();
-
-    return;
+    game.switchElements();
   }
 
-  const isShip = other.isShip(x, y);
-  if (isShip) {
-    playAiRound();
-  } else {
-    startNextRound();
-  }
-}
-
-function endGame() {
   game.enableEndScreen();
 }
 
-function isEnd() {
-  const other = game.getOther();
+function createSquareClickPromise() {
+  return new Promise((resolve, reject) => {
+    const clickToken = PubSub.subscribe('square-clicked', (msg, data) => {
+      const { boardId, x, y } = data;
 
-  return other.areAllSunk();
+      const other = game.getOther();
+      const otherId = game.getOtherId();
+
+      const isHit = other.isHit(x, y);
+      const isSameBoard = otherId === boardId;
+
+      if (!isHit && isSameBoard) {
+        resolve({ boardId, x, y });
+      } else {
+        resolve(null);
+      }
+
+      PubSub.unsubscribe(clickToken);
+    });
+  });
 }
 
-function checkIfCurrentIsAi() {
-  const current = game.getCurrent();
-
-  if (current.isAi()) {
-    playAiRound();
-  }
-}
-
-checkIfCurrentIsAi();
+export default gameLoop;

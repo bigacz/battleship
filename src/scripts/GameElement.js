@@ -7,6 +7,29 @@ class GameElement {
   constructor(name, isAi, parent, id) {
     this.player = new Player(name, isAi);
     this.boardUi = new BoardUi(parent, id);
+    this.id = id;
+
+    PubSub.subscribe('ship-dropped', (msg, data) => {
+      const { oldX, oldY, newX, newY, boardId } = data;
+      if (boardId !== this.id) {
+        return;
+      }
+
+      if (oldX === newX && oldY === newY) {
+        return;
+      }
+
+      this.relocateShip(oldX, oldY, newX, newY);
+    });
+
+    PubSub.subscribe('ship-rotated', (msg, data) => {
+      const { shipX, shipY, boardId } = data;
+      if (boardId !== this.id) {
+        return;
+      }
+
+      this.rotateShip(shipX, shipY);
+    });
   }
 
   receiveAttack(x, y) {

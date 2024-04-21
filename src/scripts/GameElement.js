@@ -1,3 +1,4 @@
+import PubSub from 'pubsub-js';
 import BoardUi from '../components/BoardUi';
 import Player from './Player';
 import { generateRandomShips } from './boardHelpers';
@@ -9,10 +10,8 @@ class GameElement {
   }
 
   receiveAttack(x, y) {
-    const isShip = this.player.isShip(x, y);
-
     this.player.receiveAttack(x, y);
-    this.boardUi.receiveAttack(x, y, isShip);
+    this.boardUi.receiveAttack(x, y);
 
     const isSunk = this.player.isSunk(x, y) === true;
     if (isSunk) {
@@ -122,6 +121,11 @@ class GameElement {
       this.player.receiveAttack(x, y);
       this.boardUi.receiveAttack(x, y);
     });
+  }
+
+  changePlayer(name, isAi) {
+    this.player.name = name;
+    this.player.isAi = isAi;
   }
 }
 

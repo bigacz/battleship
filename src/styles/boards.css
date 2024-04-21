@@ -35,6 +35,7 @@
   background-color: yellow;
 }
 
+.ship-part-hit,
 .square-ship-hit {
   background-color: red;
 }

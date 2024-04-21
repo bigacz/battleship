@@ -33,13 +33,21 @@ class BoardUi {
     }
   }
 
-  receiveAttack(x, y, isShip) {
-    const attacked = this.board.querySelector(`[data-x='${x}'][data-y='${y}']`);
+  receiveAttack(x, y) {
+    const shipPart = this.getShipPart(x, y);
+    const isShip = shipPart != null;
 
-    if (isShip) {
-      attacked.classList.add('square-ship-hit');
-    } else {
-      attacked.classList.add('square-hit');
+    const square = this.getSquare(x, y);
+    if (square != null) {
+      if (isShip) {
+        square.classList.add('square-ship-hit');
+      } else {
+        square.classList.add('square-hit');
+      }
+    }
+
+    if (shipPart) {
+      shipPart.classList.add('ship-part-hit');
     }
   }
 
@@ -105,6 +113,33 @@ class BoardUi {
 
       square.appendChild(ship);
     });
+  }
+
+  getShipPart(x, y) {
+    const partOnBoard = this.board.querySelector(
+      `.ship-part[data-x='${x}'][data-y='${y}']`
+    );
+
+    if (partOnBoard != null) {
+      return partOnBoard;
+    }
+
+    const partsInContainer = this.shipsContainer.reduce((accumulator, ship) => {
+      const shipNodes = ship.childNodes;
+
+      return accumulator.concat(...shipNodes);
+    }, []);
+
+    if (partsInContainer.length > 0) {
+      const shipPartInContainer = partsInContainer.find((shipPart) => {
+        const isX = Number(shipPart.getAttribute('data-x')) === x;
+        const isY = Number(shipPart.getAttribute('data-y')) === y;
+
+        return isX && isY;
+      });
+
+      return shipPartInContainer;
+    }
   }
 }
 

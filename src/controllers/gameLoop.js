@@ -1,12 +1,12 @@
 import PubSub from 'pubsub-js';
-import game from './game';
+import elementsManager from './elementsManager';
 
 async function gameLoop() {
-  let isSomeoneSunk = game.isSomeoneSunk();
+  let isSomeoneSunk = elementsManager.isSomeoneSunk();
 
-  while (!game.isSomeoneSunk()) {
-    const current = game.getCurrent();
-    const other = game.getOther();
+  while (!elementsManager.isSomeoneSunk()) {
+    const current = elementsManager.getCurrent();
+    const other = elementsManager.getOther();
 
     if (current.isAi()) {
       let lastWasShip = true;
@@ -16,7 +16,7 @@ async function gameLoop() {
         other.receiveAttack(x, y);
 
         lastWasShip = other.isShip(x, y);
-        isSomeoneSunk = game.isSomeoneSunk();
+        isSomeoneSunk = elementsManager.isSomeoneSunk();
       }
     } else {
       let lastWasShip = true;
@@ -30,15 +30,15 @@ async function gameLoop() {
           other.receiveAttack(x, y);
 
           lastWasShip = other.isShip(x, y);
-          isSomeoneSunk = game.isSomeoneSunk();
+          isSomeoneSunk = elementsManager.isSomeoneSunk();
         }
       }
     }
 
-    game.switchElements();
+    elementsManager.switchElements();
   }
 
-  game.enableEndScreen();
+  // end game here
 }
 
 function createSquareClickPromise() {
@@ -46,8 +46,8 @@ function createSquareClickPromise() {
     const clickToken = PubSub.subscribe('square-clicked', (msg, data) => {
       const { boardId, x, y } = data;
 
-      const other = game.getOther();
-      const otherId = game.getOtherId();
+      const other = elementsManager.getOther();
+      const otherId = elementsManager.getOtherId();
 
       const isHit = other.isHit(x, y);
       const isSameBoard = otherId === boardId;

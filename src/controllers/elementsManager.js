@@ -1,4 +1,4 @@
-import GameElement from './scripts/GameElement';
+import GameElement from '../scripts/GameElement';
 
 const parent1 = document.getElementById('board0');
 const parent2 = document.getElementById('board1');

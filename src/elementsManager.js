@@ -1,6 +1,4 @@
-import PubSub from 'pubsub-js';
 import GameElement from './scripts/GameElement';
-import endScreen from './components/endScreen';
 
 const parent1 = document.getElementById('board0');
 const parent2 = document.getElementById('board1');
@@ -8,13 +6,6 @@ const parent2 = document.getElementById('board1');
 const gameElement0 = new GameElement('Player 1', false, parent1, 0);
 const gameElement1 = new GameElement('Player 2', true, parent2, 1);
 const gameElements = [gameElement0, gameElement1];
-
-// temporary
-
-gameElement0.placeShip(4, 1, false, 2);
-gameElement1.placeShip(3, 2, true, 3);
-
-//
 
 let currentId = 0;
 let otherId = 1;
@@ -54,17 +45,40 @@ function getElement(id) {
   return gameElements[id];
 }
 
-function enableEndScreen() {
-  const winner = getWinner();
-  endScreen.changeWinner(winner);
-  endScreen.enable();
+function changePlayers(name0, isAi0, name1, isAi1) {
+  gameElement0.changePlayer(name0, isAi0);
+  gameElement1.changePlayer(name1, isAi1);
 }
 
-function disableEndScreen() {
-  endScreen.disable();
+function restartElements() {
+  gameElement0.cleanBoard();
+  gameElement1.cleanBoard();
+
+  gameElement0.placeRandomShips();
+  gameElement1.placeRandomShips();
+
+  currentId = 0;
+  otherId = 1;
+  current = gameElements[currentId];
+  other = gameElements[otherId];
 }
 
-const game = {
+function getWinner() {
+  let winner = null;
+
+  const isCurrentSunk = current.areAllSunk();
+  const isOtherSunk = other.areAllSunk();
+
+  if (isCurrentSunk) {
+    winner = other;
+  } else if (isOtherSunk) {
+    winner = current;
+  }
+
+  return winner;
+}
+
+const elementsManager = {
   switchElements,
 
   getCurrentId,
@@ -75,24 +89,10 @@ const game = {
   getOther,
   getElement,
 
-  enableEndScreen,
-  disableEndScreen,
+  getWinner,
+
+  changePlayers,
+  restartElements,
 };
 
-// Helpers
-function getWinner() {
-  let winner = null;
-
-  const isCurrentSunk = current.areAllSunk();
-  const isOtherSunk = other.areAllSunk();
-
-  if (isCurrentSunk) {
-    winner = other.getName();
-  } else if (isOtherSunk) {
-    winner = current.getName();
-  }
-
-  return winner;
-}
-
-export default game;
+export default elementsManager;

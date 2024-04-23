@@ -38,7 +38,7 @@ async function gameLoop() {
     elementsManager.switchElements();
   }
 
-  // end game here
+  PubSub.publish('game-loop-ended');
 }
 
 function createSquareClickPromise() {

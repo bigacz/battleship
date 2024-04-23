@@ -25,8 +25,8 @@ function disable() {
 // Helpers
 
 function getNames() {
-  const name0 = nameParagraph0.value;
-  const name1 = nameParagraph1.value;
+  const name0 = nameParagraph0.textContent;
+  const name1 = nameParagraph1.textContent;
 
   return [name0, name1];
 }
@@ -37,9 +37,9 @@ function updateNames(isComputer0, isComputer1) {
     nameParagraph1.textContent = 'Player 2';
   } else if (isComputer0) {
     nameParagraph0.textContent = 'Computer';
-    nameParagraph1.textContent = 'Player';
+    nameParagraph1.textContent = 'Human';
   } else if (isComputer1) {
-    nameParagraph0.textContent = 'Player';
+    nameParagraph0.textContent = 'Human';
     nameParagraph1.textContent = 'Computer';
   }
 }
@@ -92,6 +92,7 @@ switchButton.addEventListener('click', () => {
 
 playButton.addEventListener('click', () => {
   const names = getNames();
+
   const player0 = [names[0], areComputers[0]];
   const player1 = [names[1], areComputers[1]];
 

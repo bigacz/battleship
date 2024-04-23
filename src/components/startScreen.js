@@ -92,7 +92,17 @@ switchButton.addEventListener('click', () => {
 
 playButton.addEventListener('click', () => {
   const names = getNames();
-  PubSub.publish('start-game', { areComputers, names });
+  const player0 = [names[0], areComputers[0]];
+  const player1 = [names[1], areComputers[1]];
+
+  PubSub.publish('start-game', [player0, player1]);
 
   disable();
 });
+
+const startScreen = {
+  enable,
+  disable,
+};
+
+export default startScreen;

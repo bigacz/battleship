@@ -1,3 +1,13 @@
+.boards-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.boards-wrapper-rotated {
+  flex-direction: row-reverse;
+}
+
 .board {
   user-select: none;
   -webkit-user-select: none;

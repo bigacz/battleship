@@ -1,5 +1,6 @@
 import PubSub from 'pubsub-js';
 import gameLoop from './gameLoop';
+import startPlacementPhase from './startPlacementPhase';
 import elementsManager from './elementsManager';
 
 import startScreen from '../components/startScreen';
@@ -14,12 +15,13 @@ PubSub.subscribe('game-loop-ended', () => {
   endScreen.enable();
 });
 
-PubSub.subscribe('start-game', (msg, data) => {
+PubSub.subscribe('start-game', async (msg, data) => {
   const [player1, player2] = data;
 
   elementsManager.changePlayers(...player1, ...player2);
   elementsManager.restartElements();
 
+  await startPlacementPhase();
   gameLoop();
 });
 

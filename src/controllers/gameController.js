@@ -30,18 +30,22 @@ PubSub.subscribe('round-started', (msg, data) => {
   const current = elementsManager.getCurrent();
   const other = elementsManager.getOther();
 
-  const areHumans = !current.isAi() && !other.isAi();
-  if (isFirstRound) {
+  const isCurrentHuman = !current.isAi();
+  const areHumans = isCurrentHuman && !other.isAi();
+
+  if (areHumans) {
+    console.log(!current.isAi());
     other.hideShips();
     current.showShips();
 
     boardsWrapper.rotateToPlayer(current.id);
-  } else if (areHumans) {
-    other.hideShips();
-    current.showShips();
 
-    boardsWrapper.rotateToPlayer(current.id);
     switchScreen.changePlayer(current.getName());
     switchScreen.enable();
+  } else if (isCurrentHuman) {
+    other.hideShips();
+    current.showShips();
+
+    boardsWrapper.rotateToPlayer(current.id);
   }
 });

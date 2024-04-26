@@ -2,9 +2,12 @@ import PubSub from 'pubsub-js';
 import elementsManager from './elementsManager';
 
 async function gameLoop() {
+  let isFirstRound = true;
   let isSomeoneSunk = elementsManager.isSomeoneSunk();
 
   while (!elementsManager.isSomeoneSunk()) {
+    PubSub.publish('round-started', { isFirstRound });
+
     const current = elementsManager.getCurrent();
     const other = elementsManager.getOther();
 
@@ -22,7 +25,6 @@ async function gameLoop() {
       let lastWasShip = true;
 
       while (lastWasShip && !isSomeoneSunk) {
-        // eslint-disable-next-line
         const clicked = await createSquareClickPromise();
         if (clicked) {
           const { x, y } = clicked;
@@ -36,6 +38,10 @@ async function gameLoop() {
     }
 
     elementsManager.switchElements();
+
+    if (isFirstRound) {
+      isFirstRound = false;
+    }
   }
 
   PubSub.publish('game-loop-ended');

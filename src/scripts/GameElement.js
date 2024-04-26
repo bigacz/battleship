@@ -128,6 +128,14 @@ class GameElement {
     this.boardUi.disableDragging();
   }
 
+  showShips() {
+    this.boardUi.showShips();
+  }
+
+  hideShips() {
+    this.boardUi.hideShips();
+  }
+
   placeRandomShips() {
     const shipsParameters = generateRandomShips();
 

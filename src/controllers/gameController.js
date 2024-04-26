@@ -1,8 +1,11 @@
 import PubSub from 'pubsub-js';
 import gameLoop from './gameLoop';
 import elementsManager from './elementsManager';
-import endScreen from '../components/endScreen';
+
 import startScreen from '../components/startScreen';
+import endScreen from '../components/endScreen';
+import switchScreen from '../components/switchScreen';
+import boardsWrapper from '../components/boardsWrapper';
 
 PubSub.subscribe('game-loop-ended', () => {
   const winner = elementsManager.getWinner();
@@ -16,4 +19,27 @@ PubSub.subscribe('start-game', (msg, data) => {
 
   elementsManager.changePlayers(...player1, ...player2);
   elementsManager.restartElements();
+
+  gameLoop();
+});
+
+PubSub.subscribe('round-started', (msg, data) => {
+  const { isFirstRound } = data;
+  const current = elementsManager.getCurrent();
+  const other = elementsManager.getOther();
+
+  const areHumans = !current.isAi() && !other.isAi();
+  if (isFirstRound) {
+    other.hideShips();
+    current.showShips();
+
+    boardsWrapper.rotateToPlayer(current.id);
+  } else if (areHumans) {
+    other.hideShips();
+    current.showShips();
+
+    boardsWrapper.rotateToPlayer(current.id);
+    switchScreen.changePlayer(current.getName());
+    switchScreen.enable();
+  }
 });

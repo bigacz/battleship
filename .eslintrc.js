@@ -29,6 +29,7 @@ module.exports = {
   },
 
   rules: {
+    'no-await-in-loop': 'off',
     'no-use-before-define': 'off',
     'no-unused-vars': 'off',
     'consistent-return': 'off',

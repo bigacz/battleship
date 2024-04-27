@@ -31,6 +31,12 @@ class BoardUi {
         this.board.append(square);
       }
     }
+
+    const lettersParent = document.getElementById(`board-letters${this.id}`);
+    const numbersParent = document.getElementById(`board-numbers${this.id}`);
+
+    appendNumbers(numbersParent);
+    appendLetters(lettersParent);
   }
 
   receiveAttack(x, y) {
@@ -220,6 +226,8 @@ function generateSquare(x, y) {
   return square;
 }
 
+let dragged;
+
 function generateShip(startX, startY, isAxisX, length, isDraggable) {
   const parent = document.createElement('div');
   parent.classList.add('ship');
@@ -276,7 +284,23 @@ function generateShip(startX, startY, isAxisX, length, isDraggable) {
   return parent;
 }
 
-// might want to change implementation
-let dragged;
+function appendNumbers(parent) {
+  for (let i = 0; i < 10; i += 1) {
+    const div = document.createElement('div');
+    div.textContent = i;
+
+    parent.append(div);
+  }
+}
+
+function appendLetters(parent) {
+  for (let i = 0; i < 10; i += 1) {
+    const div = document.createElement('div');
+    const charCode = i + 65;
+
+    div.textContent = String.fromCharCode(charCode);
+    parent.append(div);
+  }
+}
 
 export default BoardUi;

@@ -14,10 +14,12 @@ class BoardUi {
 
   cleanBoard() {
     const squares = Array.from(this.board.children);
+    this.shipsContainer = [];
 
     squares.forEach((square) => {
+      square.replaceChildren();
       square.classList.remove('square-hit');
-      square.classList.remove('square-ship');
+      square.classList.remove('square-ship-hit');
     });
   }
 

@@ -25,6 +25,12 @@ PubSub.subscribe('start-game', async (msg, data) => {
   gameLoop();
 });
 
+PubSub.subscribe('replace-ships-clicked', () => {
+  const current = elementsManager.getCurrent();
+  current.cleanBoard();
+  current.placeRandomShips();
+});
+
 PubSub.subscribe('round-started', (msg, data) => {
   const { isFirstRound } = data;
   const current = elementsManager.getCurrent();

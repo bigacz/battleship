@@ -19,8 +19,37 @@ function rotateToPlayer(id) {
   }
 }
 
+function appendCoordinates(id) {
+  const numbers = document.getElementById(`board-numbers${id}`);
+  const letters = document.getElementById(`board-letters${id}`);
+  appendNumbers(numbers);
+  appendLetters(letters);
+}
+
+// Helpers
+
+function appendNumbers(parent) {
+  for (let i = 0; i < 10; i += 1) {
+    const div = document.createElement('div');
+    div.textContent = i;
+
+    parent.append(div);
+  }
+}
+
+function appendLetters(parent) {
+  for (let i = 0; i < 10; i += 1) {
+    const div = document.createElement('div');
+    const charCode = i + 65;
+
+    div.textContent = String.fromCharCode(charCode);
+    parent.append(div);
+  }
+}
+
 const boardWrappers = {
   rotateToPlayer,
+  appendCoordinates,
 };
 
 export default boardWrappers;

@@ -2,12 +2,15 @@ import PubSub from 'pubsub-js';
 import BoardUi from '../components/BoardUi';
 import Player from './Player';
 import { generateRandomShips } from './boardHelpers';
+import boardWrappers from '../components/boardWrappers';
 
 class GameElement {
   constructor(name, isAi, parent, id) {
     this.player = new Player(name, isAi);
     this.boardUi = new BoardUi(parent, id);
     this.id = id;
+
+    boardWrappers.appendCoordinates(id);
 
     PubSub.subscribe('ship-dropped', (msg, data) => {
       const { oldX, oldY, newX, newY, boardId } = data;

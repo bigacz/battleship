@@ -6,7 +6,7 @@ import elementsManager from './elementsManager';
 import startScreen from '../components/startScreen';
 import endScreen from '../components/endScreen';
 import switchScreen from '../components/switchScreen';
-import boardsWrapper from '../components/boardsWrapper';
+import boardWrappers from '../components/boardWrappers';
 
 PubSub.subscribe('game-loop-ended', () => {
   const winner = elementsManager.getWinner();
@@ -44,7 +44,7 @@ PubSub.subscribe('round-started', (msg, data) => {
     other.hideShips();
     current.showShips();
 
-    boardsWrapper.rotateToPlayer(current.id);
+    boardWrappers.rotateToPlayer(current.id);
 
     switchScreen.changePlayer(current.getName());
     switchScreen.enable();
@@ -52,6 +52,6 @@ PubSub.subscribe('round-started', (msg, data) => {
     other.hideShips();
     current.showShips();
 
-    boardsWrapper.rotateToPlayer(current.id);
+    boardWrappers.rotateToPlayer(current.id);
   }
 });

@@ -1,6 +1,6 @@
 import PubSub from 'pubsub-js';
 import elementsManager from './elementsManager';
-import boardsWrapper from '../components/boardsWrapper';
+import boardWrappers from '../components/boardWrappers';
 import '../components/placementControls';
 import switchScreen from '../components/switchScreen';
 
@@ -9,7 +9,7 @@ async function startPlacementPhase() {
 
   await startPlacementRound();
 
-  boardsWrapper.rotateToPlayer(0);
+  boardWrappers.rotateToPlayer(0);
 
   const current = elementsManager.getCurrent();
   const other = elementsManager.getOther();
@@ -30,7 +30,7 @@ async function startPlacementRound() {
       switchScreen.enable();
     }
 
-    boardsWrapper.rotateToPlayer(current.id);
+    boardWrappers.rotateToPlayer(current.id);
 
     current.showShips();
     current.enableDragging();

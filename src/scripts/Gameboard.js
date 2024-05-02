@@ -68,6 +68,11 @@ class Gameboard {
   }
 
   isLegalToPlaceShip(startX, startY, isAxisX, length) {
+    const isShip = this.board[startX][startY].ship == null;
+    if (!isShip) {
+      return false;
+    }
+
     const isOutBound = isShipOutOfBound(startX, startY, isAxisX, length);
     if (isOutBound) {
       return false;

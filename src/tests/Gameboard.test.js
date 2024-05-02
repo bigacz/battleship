@@ -123,6 +123,12 @@ describe('isLegalToPlaceShip', () => {
     expect(gameboard.isLegalToPlaceShip(5, 0, true, 3)).toBe(true);
   });
 
+  test('returns false if ships is on square', () => {
+    gameboard.board[0][0].ship = mockShipFloating;
+
+    expect(gameboard.isLegalToPlaceShip(0, 0, true, 3)).toBe(false);
+  });
+
   test('returns false if ship is adjacent', () => {
     gameboard.board[0][0].ship = mockShipFloating;
 

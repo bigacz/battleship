@@ -1,5 +1,5 @@
 import PubSub from 'pubsub-js';
-import gameLoop from './gameLoop';
+import startGameLoop from './startGameLoop';
 import startPlacementPhase from './startPlacementPhase';
 import elementsManager from './elementsManager';
 
@@ -26,7 +26,7 @@ PubSub.subscribe('start-game', async (msg, data) => {
   await startPlacementPhase();
 
   messageBoard.setAttackEnemy();
-  gameLoop();
+  startGameLoop();
 });
 
 PubSub.subscribe('replace-ships-clicked', () => {

@@ -1,7 +1,7 @@
 import PubSub from 'pubsub-js';
 import elementsManager from './elementsManager';
 
-async function gameLoop() {
+async function startGameLoop() {
   let isFirstRound = true;
   let isSomeoneSunk = elementsManager.isSomeoneSunk();
 
@@ -69,4 +69,4 @@ function createSquareClickPromise() {
   });
 }
 
-export default gameLoop;
+export default startGameLoop;

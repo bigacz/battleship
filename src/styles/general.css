@@ -3,7 +3,54 @@ body {
   background-color: rgb(61, 58, 58);
   color: white;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+}
+
+main {
+  height: 100%;
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: max-content 1fr;
+
+  grid-template-areas:
+    'header header'
+    'message message'
+    'board0  board1'
+    'control .';
+
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: max-content 8rem max-content 1fr;
+
+  gap: 1rem;
+}
+
+header {
+  grid-area: header;
+
+  text-align: center;
+}
+
+.message-board {
+  grid-area: message;
+
+  font-size: 1.8rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.control-panel {
+  grid-area: control;
+
+  /* needs migrating */
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.board-wrapper0 {
+  grid-area: board0;
+}
+
+.board-wrapper1 {
+  grid-area: board1;
 }

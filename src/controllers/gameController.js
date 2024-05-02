@@ -7,6 +7,7 @@ import startScreen from '../components/startScreen';
 import endScreen from '../components/endScreen';
 import switchScreen from '../components/switchScreen';
 import boardWrappers from '../components/boardWrappers';
+import messageBoard from '../components/messageBoard';
 
 PubSub.subscribe('game-loop-ended', () => {
   const winner = elementsManager.getWinner();
@@ -21,7 +22,10 @@ PubSub.subscribe('start-game', async (msg, data) => {
   elementsManager.changePlayers(...player1, ...player2);
   elementsManager.restartElements();
 
+  messageBoard.setPlaceShips();
   await startPlacementPhase();
+
+  messageBoard.setAttackEnemy();
   gameLoop();
 });
 

@@ -71,32 +71,29 @@ class Gameboard {
       return isHit && isShip && !isSunk;
     });
 
-    for (let i = 0; i < hitNonSunkShipCoords.length; i += 1) {
-      const [x, y] = hitNonSunkShipCoords[i];
-      const ship = this.getShip(x, y);
+    const nearShipCoords = hitNonSunkShipCoords.reduce((acc, shipCoords) => {
+      const [shipX, shipY] = shipCoords;
+      const ship = this.getShip(shipX, shipY);
 
-      const verticalCoords = getAdjacentVerticalCoords(x, y);
-      const horizontalCoords = getAdjacentHorizontalCoords(x, y);
+      const verticalCoords = getAdjacentVerticalCoords(shipX, shipY);
+      const horizontalCoords = getAdjacentHorizontalCoords(shipX, shipY);
 
       let coords = [];
       if (ship.hits > 1) {
-        if (ship.isAxisX) {
-          coords = horizontalCoords;
-        } else {
-          coords = verticalCoords;
-        }
+        coords = ship.isAxisX ? horizontalCoords : verticalCoords;
       } else {
         coords = horizontalCoords.concat(verticalCoords);
       }
 
-      const nonHitCoords = coords.filter(
-        (coordinates) => !this.isHit(...coordinates)
-      );
+      const nonHitCoords = coords.filter(([x, y]) => !this.isHit(x, y));
 
-      if (nonHitCoords.length > 0) {
-        const randomIndex = getRandomInteger(nonHitCoords.length);
-        return nonHitCoords[randomIndex];
-      }
+      return acc.concat(nonHitCoords);
+    }, []);
+
+    if (nearShipCoords.length > 0) {
+      const randomIndex = getRandomInteger(nearShipCoords.length);
+
+      return nearShipCoords[randomIndex];
     }
 
     const nonHitSquares = allSquares.filter(([x, y]) => !this.isHit(x, y));

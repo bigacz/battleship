@@ -112,6 +112,45 @@ describe('calculateAttack', () => {
 
     expect(square.isHit).toBe(false);
   });
+
+  test('returns a non hit square around one hitted non sunk ship', () => {
+    mockShipFloating.hits = 1;
+    gameboard.board[4][4].isHit = true;
+    gameboard.board[4][4].ship = mockShipFloating;
+    gameboard.board[5][4].ship = mockShipFloating;
+
+    const coords = gameboard.calculateAttack();
+
+    expect(String(coords)).toBe(String([3, 4]));
+  });
+
+  test('returns a horizontally adjacent coords', () => {
+    mockShipFloating.isAxisX = true;
+    mockShipFloating.hits = 2;
+    gameboard.board[5][4].isHit = true;
+    gameboard.board[6][4].isHit = true;
+    gameboard.board[4][4].ship = mockShipFloating;
+    gameboard.board[5][4].ship = mockShipFloating;
+    gameboard.board[6][4].ship = mockShipFloating;
+
+    const coords = gameboard.calculateAttack();
+
+    expect(String(coords)).toBe(String([4, 4]));
+  });
+
+  test('returns a vertically adjacent coords', () => {
+    mockShipFloating.isAxisX = false;
+    mockShipFloating.hits = 2;
+    gameboard.board[4][5].isHit = true;
+    gameboard.board[4][6].isHit = true;
+    gameboard.board[4][4].ship = mockShipFloating;
+    gameboard.board[4][5].ship = mockShipFloating;
+    gameboard.board[4][6].ship = mockShipFloating;
+
+    const coords = gameboard.calculateAttack();
+
+    expect(String(coords)).toBe(String([4, 4]));
+  });
 });
 
 describe('isLegalToPlaceShip', () => {

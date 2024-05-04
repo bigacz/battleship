@@ -1,10 +1,14 @@
 import Ship from './Ship';
 import {
+  generateBoardCoords,
   getAdjacentCoords,
+  getAdjacentHorizontalCoords,
+  getAdjacentVerticalCoords,
   getShipAdjacentCoords,
   isShipOutOfBound,
   translateCoords,
 } from './boardHelpers';
+import getRandomInteger from '../helpers/getRandomInteger';
 
 class Gameboard {
   constructor() {
@@ -57,14 +61,50 @@ class Gameboard {
   }
 
   calculateAttack() {
-    const allSquares = this.board.flat();
-    const nonHitSquares = allSquares.filter((square) => square.isHit === false);
+    const allSquares = generateBoardCoords();
 
-    const randomIndex = Math.floor(Math.random() * nonHitSquares.length);
+    const hitNonSunkShipCoords = allSquares.filter(([x, y]) => {
+      const isHit = this.isHit(x, y);
+      const isShip = this.isShip(x, y);
+      const isSunk = this.isSunk(x, y);
 
-    const { x, y } = nonHitSquares[randomIndex];
+      return isHit && isShip && !isSunk;
+    });
 
-    return [x, y];
+    for (let i = 0; i < hitNonSunkShipCoords.length; i += 1) {
+      const [x, y] = hitNonSunkShipCoords[i];
+      const ship = this.getShip(x, y);
+
+      const verticalCoords = getAdjacentVerticalCoords(x, y);
+      const horizontalCoords = getAdjacentHorizontalCoords(x, y);
+
+      let coords = [];
+      if (ship.hits > 1) {
+        if (ship.isAxisX) {
+          coords = horizontalCoords;
+        } else {
+          coords = verticalCoords;
+        }
+      } else {
+        coords = horizontalCoords.concat(verticalCoords);
+      }
+
+      const nonHitCoords = coords.filter(
+        (coordinates) => !this.isHit(...coordinates)
+      );
+
+      if (nonHitCoords.length > 0) {
+        const randomIndex = getRandomInteger(nonHitCoords.length);
+        return nonHitCoords[randomIndex];
+      }
+    }
+
+    const nonHitSquares = allSquares.filter(([x, y]) => !this.isHit(x, y));
+
+    const randomIndex = getRandomInteger(nonHitSquares.length);
+    const randomCoords = nonHitSquares[randomIndex];
+
+    return randomCoords;
   }
 
   isLegalToPlaceShip(startX, startY, isAxisX, length) {

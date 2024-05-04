@@ -139,6 +139,38 @@ function getAdjacentCoords(midX, midY) {
   return coordinates;
 }
 
+function getAdjacentHorizontalCoords(x, y) {
+  const coords = [];
+
+  const left = [x - 1, y];
+  if (isInBound(...left)) {
+    coords.push(left);
+  }
+
+  const right = [x + 1, y];
+  if (isInBound(...right)) {
+    coords.push(right);
+  }
+
+  return coords;
+}
+
+function getAdjacentVerticalCoords(x, y) {
+  const coords = [];
+
+  const up = [x, y - 1];
+  if (isInBound(...up)) {
+    coords.push(up);
+  }
+
+  const down = [x, y + 1];
+  if (isInBound(...down)) {
+    coords.push(down);
+  }
+
+  return coords;
+}
+
 // rename - confusing
 function isOutBound(x, y) {
   const isX = x >= 0 && x <= 9;
@@ -214,4 +246,7 @@ export {
   getAdjacentCoords,
   getShipAdjacentCoords,
   generateRandomShips,
+  generateBoardCoords,
+  getAdjacentVerticalCoords,
+  getAdjacentHorizontalCoords,
 };

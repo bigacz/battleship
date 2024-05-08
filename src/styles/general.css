@@ -27,12 +27,6 @@ header {
 
 .message-board {
   grid-area: message;
-
-  font-size: 1.8rem;
-
-  display: flex;
-  justify-content: center;
-  align-items: end;
 }
 
 .control-panel {

@@ -3,10 +3,11 @@ import './general.css';
 import './fonts.css';
 import './variables.css';
 
-import './header.css';
-import './boards.css';
-import './endscreen.css';
-import './startScreen.css';
-import './switchScreen.css';
-import './controlPanel.css';
-import './messageBoard.css';
+import './sections/header.css';
+import './sections/boards.css';
+import './sections/controlPanel.css';
+import './sections/messageBoard.css';
+
+import './modals/endscreen.css';
+import './modals/startScreen.css';
+import './modals/switchScreen.css';

@@ -2,6 +2,7 @@ import 'normalize.css';
 import './general.css';
 import './fonts.css';
 import './variables.css';
+import './button.css';
 
 import './sections/header.css';
 import './sections/boards.css';

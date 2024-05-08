@@ -60,11 +60,39 @@
 }
 
 .square {
-  background-color: teal;
+  background-color: var(--blue);
 }
 
 .square-hit {
-  background-color: white;
+  position: relative;
+}
+
+.square-hit::after {
+  background-color: var(--white);
+
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 1rem;
+  height: 1rem;
+
+  clip-path: polygon(
+    20% 0%,
+    0% 20%,
+    30% 50%,
+    0% 80%,
+    20% 100%,
+    50% 70%,
+    80% 100%,
+    100% 80%,
+    70% 50%,
+    100% 20%,
+    80% 0%,
+    50% 30%
+  );
 }
 
 .ship {
@@ -84,10 +112,10 @@
 }
 
 .ship-part {
-  background-color: yellow;
+  background-color: var(--yellow);
 }
 
 .ship-part-hit,
 .square-ship-hit {
-  background-color: red;
+  background-color: var(--red);
 }

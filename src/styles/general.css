@@ -1,8 +1,9 @@
 body {
   height: 100dvh;
-  background-color: rgb(61, 58, 58);
-  color: white;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--white);
+  color: var(--gray-dark);
+  font-family: 'Jaro', sans-serif;
+  font-weight: 400;
 }
 
 main {
@@ -16,7 +17,7 @@ main {
     'control .';
 
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: max-content 8rem max-content 1fr;
+  grid-template-rows: max-content 10vh max-content 1fr;
 
   gap: 1rem;
 }

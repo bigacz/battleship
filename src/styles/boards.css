@@ -22,7 +22,9 @@
 .board-numbers,
 .board-letters {
   font-weight: bold;
-  font-family: monospace;
+  font-family: 'Radio Canada Big', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
   display: grid;
   gap: 2px;
 }

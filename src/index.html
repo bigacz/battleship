@@ -41,28 +41,36 @@
 
     <div class="modal modal-active" id="startscreen">
       <div class="modal-dialogbox startscreen-dialogbox">
-        <p class="startscreen-header">Battleship</p>
-        <p id="startscreen-name-0" class="startscreen-name-0">Human</p>
+        <h2 class="startscreen-header">Battleship</h2>
+        <p id="startscreen-name-0" class="startscreen-name startscreen-name-0">
+          Human
+        </p>
 
         <button
-          class="startscreen-switch startscreen-switch-active"
+          class="button startscreen-switch startscreen-switch-active"
           id="startscreen-switch"
           type="button"
         >
           ⇆
         </button>
-        <p id="startscreen-name-1" class="startscreen-name-1">Computer</p>
+        <p id="startscreen-name-1" class="startscreen-name startscreen-name-1">
+          Computer
+        </p>
 
         <div class="startscreen-mode-wrapper-0">
           <input
             type="radio"
             name="mode"
             id="startscreen-mode-0"
-            class="startscreen-mode-0"
+            class="startscreen-mode startscreen-mode-0"
             value="computer"
             checked
           />
-          <label for="startscreen-mode-0">vs Computer</label>
+          <label
+            class="startscreen-mode-label startscreen-mode-label-0"
+            for="startscreen-mode-0"
+            >vs Computer</label
+          >
         </div>
 
         <div class="startscreen-mode-wrapper-1">
@@ -70,13 +78,21 @@
             type="radio"
             name="mode"
             id="startscreen-mode-1"
-            class="startscreen-mode-1"
+            class="startscreen-mode startscreen-mode-1"
             value="player"
           />
-          <label for="startscreen-mode-1">vs Player</label>
+          <label
+            class="startscreen-mode-label startscreen-mode-label-1"
+            for="startscreen-mode-1"
+            >vs Player</label
+          >
         </div>
 
-        <button class="startscreen-play" id="startscreen-play" type="button">
+        <button
+          class="button startscreen-play"
+          id="startscreen-play"
+          type="button"
+        >
           Play
         </button>
       </div>

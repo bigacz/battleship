@@ -5,8 +5,8 @@
   border: none;
   border-radius: 2px;
   font-size: 1.2rem;
-  background-color: var(--brown);
-  box-shadow: 0 5px 0px 0px var(--shadow-color, var(--brown-dark));
+  background-color: var(--yellow-lighter);
+  box-shadow: 0 5px 0px 0px var(--shadow-color, var(--yellow-light));
 
   transition:
     transform 0.1s ease-out,
@@ -15,6 +15,6 @@
 
 .button:active {
   transform: translate(0px, 5px);
-  box-shadow: 0px 1px 0px 0px var(--shadow-color, var(--brown-dark));
+  box-shadow: 0px 1px 0px 0px var(--shadow-color, var(--yellow-light));
   transition: none;
 }

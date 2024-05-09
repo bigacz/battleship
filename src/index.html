@@ -33,14 +33,14 @@
       </div>
     </main>
 
-    <div id="endscreen" class="endscreen">
-      <div id="endscreen-dialogbox" class="endscreen-dialogbox">
+    <div class="modal" id="endscreen">
+      <div class="modal-dialogbox endscreen-dialogbox" id="endscreen-dialogbox">
         <p id="endscreen-winner">Someone won, someone lost!</p>
       </div>
     </div>
 
-    <div class="startscreen startscreen-active" id="startscreen">
-      <div class="startscreen-dialogbox">
+    <div class="modal modal-active" id="startscreen">
+      <div class="modal-dialogbox startscreen-dialogbox">
         <p class="startscreen-header">Battleship</p>
         <p id="startscreen-name-0" class="startscreen-name-0">Human</p>
 
@@ -82,8 +82,8 @@
       </div>
     </div>
 
-    <div class="switchscreen" id="switchscreen">
-      <div class="switchscreen-dialogbox">
+    <div class="modal modal-opaque" id="switchscreen">
+      <div class="modal-dialogbox switchscreen-dialogbox">
         <p id="switchscreen-player">Player 1's turn</p>
         <p>Are you ready?</p>
         <button id="switchscreen-play">Play</button>

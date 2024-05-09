@@ -15,11 +15,11 @@ const playButton = document.getElementById('startscreen-play');
 let areComputers = [false, true];
 
 function enable() {
-  wrapper.classList.add('startscreen-active');
+  wrapper.classList.add('modal-active');
 }
 
 function disable() {
-  wrapper.classList.remove('startscreen-active');
+  wrapper.classList.remove('modal-active');
 }
 
 // Helpers

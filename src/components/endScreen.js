@@ -2,11 +2,11 @@ const wrapper = document.getElementById('endscreen');
 const winnerParagraph = document.getElementById('endscreen-winner');
 
 function enable() {
-  wrapper.classList.add('endscreen-active');
+  wrapper.classList.add('modal-active');
 }
 
 function disable() {
-  wrapper.classList.remove('endscreen-active');
+  wrapper.classList.remove('modal-active');
 }
 
 function changeWinner(winner) {

@@ -3,6 +3,7 @@ import './general.css';
 import './fonts.css';
 import './variables.css';
 import './button.css';
+import './modals/modal.css';
 
 import './sections/header.css';
 import './sections/boards.css';

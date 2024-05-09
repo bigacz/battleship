@@ -1,26 +1,4 @@
-.startscreen {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100dvh;
-  width: 100dvw;
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-.startscreen-active {
-  display: block;
-}
-
 .startscreen-dialogbox {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 40%;
-  left: 50%;
-
-  background-color: brown;
-  padding: 1rem;
-
   display: grid;
   grid-template-areas:
     'header header header'

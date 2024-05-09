@@ -7,11 +7,11 @@ function changePlayer(name) {
 }
 
 function enable() {
-  wrapper.classList.add('switchscreen-active');
+  wrapper.classList.add('modal-active');
 }
 
 function disable() {
-  wrapper.classList.remove('switchscreen-active');
+  wrapper.classList.remove('modal-active');
 }
 
 playButton.addEventListener('click', () => {

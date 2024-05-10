@@ -1,2 +1,12 @@
 .endscreen-dialogbox {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem;
+}
+
+.endscreen-winner {
+  margin: 0;
+  padding: 0;
+  font-size: 2rem;
 }

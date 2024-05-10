@@ -1,3 +1,6 @@
 # TODO
 
-Add smart computer
+Change font formats\
+Style switchscreen\
+Add mobile support\
+Fix modal naming

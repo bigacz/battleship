@@ -63,6 +63,11 @@ function restartElements() {
   other = gameElements[otherId];
 }
 
+function clearElements() {
+  gameElement0.cleanBoard();
+  gameElement1.cleanBoard();
+}
+
 function getWinner() {
   let winner = null;
 
@@ -93,6 +98,7 @@ const elementsManager = {
 
   changePlayers,
   restartElements,
+  clearElements,
 };
 
 export default elementsManager;

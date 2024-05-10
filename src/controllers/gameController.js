@@ -35,8 +35,7 @@ PubSub.subscribe('replace-ships-clicked', () => {
   current.placeRandomShips();
 });
 
-PubSub.subscribe('round-started', (msg, data) => {
-  const { isFirstRound } = data;
+PubSub.subscribe('round-started', () => {
   const current = elementsManager.getCurrent();
   const other = elementsManager.getOther();
 
@@ -58,4 +57,9 @@ PubSub.subscribe('round-started', (msg, data) => {
 
     boardWrappers.rotateToPlayer(current.id);
   }
+});
+
+PubSub.subscribe('play-again-clicked', () => {
+  elementsManager.clearElements();
+  startScreen.enable();
 });

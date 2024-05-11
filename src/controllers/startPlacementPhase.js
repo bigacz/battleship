@@ -1,10 +1,12 @@
 import PubSub from 'pubsub-js';
 import elementsManager from './elementsManager';
 import boardWrappers from '../components/boardWrappers';
-import '../components/placementControls';
+import controlPanel from '../components/controlPanel';
 import switchScreen from '../components/switchScreen';
 
 async function startPlacementPhase() {
+  controlPanel.enable();
+
   await startPlacementRound();
 
   await startPlacementRound();
@@ -16,6 +18,8 @@ async function startPlacementPhase() {
 
   current.hideShips();
   other.hideShips();
+
+  controlPanel.disable();
 
   PubSub.publish('placement-phase-ended');
 }

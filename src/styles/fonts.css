@@ -5,10 +5,10 @@
 
 @font-face {
   font-family: 'RadioCanadaBig';
-  src: url(../assets/fonts/RadioCanadaBig.ttf);
+  src: url(../assets/fonts/RadioCanadaBig.woff);
 }
 
 @font-face {
   font-family: 'Jaro';
-  src: url(../assets/fonts/Jaro.ttf);
+  src: url(../assets/fonts/Jaro.woff);
 }

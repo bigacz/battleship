@@ -1,4 +1,5 @@
 .control-panel {
+  visibility: hidden;
   display: flex;
   justify-content: center;
   align-items: start;
@@ -8,4 +9,8 @@
 .confirm-button {
   --shadow-color: var(--green);
   background-color: var(--green-light);
+}
+
+.control-panel-active {
+  visibility: visible;
 }

@@ -20,9 +20,9 @@ randomButton.addEventListener('click', () => {
   PubSub.publish('replace-ships-clicked');
 });
 
-const placementControls = {
+const controlPanel = {
   enable,
   disable,
 };
 
-export default placementControls;
+export default controlPanel;

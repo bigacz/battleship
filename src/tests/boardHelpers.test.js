@@ -3,7 +3,7 @@ import {
   translateCoords,
   getShipAdjacentCoords,
   generateRandomShips,
-} from '../scripts/boardHelpers';
+} from '../helpers/boardHelpers';
 
 jest.spyOn(global.Math, 'random').mockReturnValue(0.000001);
 

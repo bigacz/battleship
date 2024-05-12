@@ -7,7 +7,7 @@ import {
   getShipAdjacentCoords,
   isShipOutOfBound,
   translateCoords,
-} from './boardHelpers';
+} from '../helpers/boardHelpers';
 import getRandomInteger from '../helpers/getRandomInteger';
 
 class Gameboard {

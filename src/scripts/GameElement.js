@@ -1,7 +1,7 @@
 import PubSub from 'pubsub-js';
 import BoardUi from '../components/BoardUi';
 import Player from './Player';
-import { generateRandomShips } from './boardHelpers';
+import { generateRandomShips } from '../helpers/boardHelpers';
 import boardWrappers from '../components/boardWrappers';
 
 class GameElement {

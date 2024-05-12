@@ -4,14 +4,13 @@ import Ship from '../scripts/Ship';
 jest.spyOn(global.Math, 'random').mockReturnValue(0.0001);
 
 let gameboard;
-let ship1;
 
-let mockShipFloating = {
+const mockShipFloating = {
   hit: jest.fn(),
   isSunk: jest.fn(() => false),
 };
 
-let mockShipSunk = {
+const mockShipSunk = {
   hit: jest.fn(),
   isSunk: jest.fn(() => true),
 };
@@ -39,7 +38,7 @@ describe('Instantiation', () => {
 
 describe('placeShip', () => {
   test('on x axis', () => {
-    let ship = new Ship(1, 2, true, 3);
+    const ship = new Ship(1, 2, true, 3);
     gameboard.placeShip(1, 2, true, 3);
 
     expect(gameboard.board[1][2].ship).toEqual(ship);
@@ -48,7 +47,7 @@ describe('placeShip', () => {
   });
 
   test('on y axis', () => {
-    let ship = new Ship(2, 3, false, 2);
+    const ship = new Ship(2, 3, false, 2);
     gameboard.placeShip(2, 3, false, 2);
 
     expect(gameboard.board[2][3].ship).toEqual(ship);

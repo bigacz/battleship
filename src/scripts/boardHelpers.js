@@ -15,7 +15,7 @@ function translateCoords(startX, startY, isAxisX, length) {
 }
 
 function isShipOutOfBound(startX, startY, isAxisX, length) {
-  let endCoordinate = isAxisX === true ? startX + length : startY + length;
+  const endCoordinate = isAxisX === true ? startX + length : startY + length;
 
   return endCoordinate - 1 > 9;
 }
@@ -227,10 +227,10 @@ function removeCoordsFromArray(array, removeValues) {
 }
 
 function shuffleArray(preArray) {
-  let array = [...preArray];
+  const array = [...preArray];
 
   for (let i = array.length - 1; i > 0; i -= 1) {
-    let randomIndex = Math.floor((i + 1) * Math.random());
+    const randomIndex = Math.floor((i + 1) * Math.random());
 
     const temp = array[randomIndex];
     array[randomIndex] = array[i];

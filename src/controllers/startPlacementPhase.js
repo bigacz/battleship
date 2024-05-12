@@ -50,7 +50,7 @@ async function startPlacementRound() {
 }
 
 function createConfirmPromise() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const token = PubSub.subscribe('placement-confirmed', () => {
       resolve();
 

@@ -48,7 +48,7 @@ async function startGameLoop() {
 }
 
 function createSquareClickPromise() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const clickToken = PubSub.subscribe('square-clicked', (msg, data) => {
       const { boardId, x, y } = data;
 

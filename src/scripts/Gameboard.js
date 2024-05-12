@@ -148,7 +148,6 @@ class Gameboard {
     const usedCoords = [...knownCoords, [startX, startY]];
     const shipCoords = [[startX, startY]];
 
-    let i = 0;
     while (knownCoords.length > 0) {
       const [x, y] = knownCoords.pop();
 

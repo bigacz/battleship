@@ -43,7 +43,6 @@ PubSub.subscribe('round-started', () => {
   const areHumans = isCurrentHuman && !other.isAi();
 
   if (areHumans) {
-    console.log(!current.isAi());
     other.hideShips();
     current.showShips();
 

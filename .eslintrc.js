@@ -31,14 +31,9 @@ module.exports = {
   rules: {
     'no-await-in-loop': 'off',
     'no-use-before-define': 'off',
-    'no-unused-vars': 'off',
     'consistent-return': 'off',
-    'no-console': 'off',
     'max-classes-per-file': 'off',
     'import/extensions': 'off',
-    'prefer-const': 'off',
-    'no-empty': 'off',
-    'no-param-reassign': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {
@@ -51,3 +46,10 @@ module.exports = {
     ],
   },
 };
+
+// Rules for development
+// 'no-console': 'off',
+// 'no-unused-vars': 'off',
+// 'prefer-const': 'off',
+// 'no-empty': 'off',
+// 'no-param-reassign': 'off',

@@ -2,14 +2,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  mode: 'development',
   entry: './src/index.js',
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
-  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -37,11 +35,6 @@ module.exports = {
     }),
   ],
   cache: false,
-  devServer: {
-    hot: true,
-    open: true,
-    watchFiles: ['src/**/*'],
-  },
 };
 
 //  watchContentBase: true,

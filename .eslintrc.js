@@ -39,5 +39,15 @@ module.exports = {
     'prefer-const': 'off',
     'no-empty': 'off',
     'no-param-reassign': 'off',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [
+          'webpack.common.js',
+          'webpack.dev.js',
+          'webpack.prod.js',
+        ],
+      },
+    ],
   },
 };

@@ -10,6 +10,6 @@ import './sections/boards.css';
 import './sections/controlPanel.css';
 import './sections/messageBoard.css';
 
-import './modals/endscreen.css';
+import './modals/endScreen.css';
 import './modals/startScreen.css';
 import './modals/switchScreen.css';

@@ -36,6 +36,3 @@ module.exports = {
   ],
   cache: false,
 };
-
-//  watchContentBase: true,
-//  contentBase: path.resolve(__dirname, 'dist'),
